@@ -203,6 +203,10 @@ input[type=range]::-webkit-slider-thumb{
   box-shadow:0 4px 20px rgba(49,165,64,.3);
 }
 .btn-export:hover{opacity:.9;transform:translateY(-2px);}
+/* ─── SIGUIENTE NAV ─── */
+.tab-nav-btns{display:flex;justify-content:flex-end;padding:24px 0 8px;margin-top:24px;border-top:1px solid rgba(255,255,255,.08);}
+.btn-siguiente{background:var(--cian);color:var(--navy);border:none;border-radius:50px;padding:12px 28px;font-size:14px;font-family:var(--font-t);font-weight:700;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:8px;}
+.btn-siguiente:hover{background:var(--cian-neon);transform:translateY(-2px);}
 /* ─── TOAST ─── */
 #toast{
   position:fixed;bottom:24px;right:24px;z-index:9999;
@@ -402,7 +406,7 @@ input[type=range]::-webkit-slider-thumb{
         <tbody id="s3_matriz_body">
           <tr>
             <td><input oninput="onChange()" placeholder="Ej: Ventas"></td>
-            <td><input type="number" oninput="onChange()" placeholder="0" style="width:70px"></td>
+            <td><input type="number" oninput="onChange()" placeholder="0" style="width:70px" min="0"></td>
             <td><select oninput="onChange()"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select></td>
             <td><select oninput="onChange()"><option>Proceso</option><option>Conducta</option><option>Herramienta/TI</option><option>Estructura</option><option>Cultural</option></select></td>
             <td><textarea oninput="onChange()" placeholder="Describe..."></textarea></td>
@@ -1035,7 +1039,7 @@ function addRow(tbodyId, numCols) {
   var tableMap = {
     's1_inv_body': [['input','textarea','textarea']],
     's2_plan_body': [['textarea','input','input','select']],
-    's3_matriz_body': [['input','input','select','select','textarea']],
+    's3_matriz_body': [['input','number','select','select','textarea']],
     's4_sh_body': [['input','select','select','textarea']],
     's5_mens_body': [['input','textarea','textarea','textarea','select']],
     's6_plan_body': [['textarea','input','select','input','input','select']],
@@ -1062,7 +1066,8 @@ function addRow(tbodyId, numCols) {
     var td = row.insertCell();
     var el;
     if (type === 'textarea') { el = document.createElement('textarea'); el.style.minHeight='52px'; }
-    else if (type === 'select') { 
+    else if (type === 'number') { el = document.createElement('input'); el.type='number'; el.min='0'; el.style.width='70px'; el.placeholder='0'; }
+    else if (type === 'select') {
       el = document.createElement('select');
       var opts = (selectOpts[tbodyId] && selectOpts[tbodyId][i]) || [];
       opts.forEach(function(o){ var op=document.createElement('option');op.value=o;op.textContent=o;el.appendChild(op); });
@@ -1106,6 +1111,7 @@ function hideRegError() {
 
 // ══ EXCEL EXPORT
 function exportarExcel() {
+  try {
   var wb = XLSX.utils.book_new();
   var N = {rgb:'041328'}, C = {rgb:'33B4D2'}, V = {rgb:'31A540'}, W = {rgb:'FFFFFF'}, 
       NA = {rgb:'F4A261'}, T = {rgb:'1B1B1B'}, LT = {rgb:'0A1E36'};
@@ -1116,7 +1122,7 @@ function exportarExcel() {
   function subStyle(c) { return {fill:{fgColor:N},font:{color:c||C,bold:true,name:'Montserrat',sz:11},alignment:{wrapText:true,vertical:'center'}}; }
 
   // ── Portada
-  function val(id) { var e=document.getElementById(id); return e?e.value.trim():''; }
+  function val(id) { var e=document.getElementById(id); if(!e) return ''; return (e.value!==undefined ? e.value : (e.textContent||'')).trim(); }
   var portData = [
     ['','CUADERNO DEL PARTICIPANTE — AGENTES DE CAMBIO G2G0526',''],
     [''],
@@ -1285,7 +1291,29 @@ function exportarExcel() {
   var nombre = (localStorage.getItem(LOCAL_KEY_PREFIX+'email') || 'participante').replace(/[^a-z0-9]/gi,'_');
   var fecha = new Date().toISOString().slice(0,10);
   XLSX.writeFile(wb, 'G2G0526_Cuaderno_' + nombre + '_' + fecha + '.xlsx');
+  } catch(err) {
+    alert('Error al generar Excel: ' + err.message);
+    console.error('exportarExcel error:', err);
+  }
 }
+
+// ══ INYECTAR BOTONES "SIGUIENTE" EN CADA TAB (0–9)
+(function injectNavButtons() {
+  var tabLabels = [
+    'S1 · Fundamentos','S2 · Estrategia','S3 · Impacto','S4 · Stakeholders ★',
+    'S5 · Comunicación','S6 · Plan Com.','S7 · Entrenamiento','S8 · Métricas ★',
+    'S9 · TTT Meto.','S10 · TTT Práctica ★','📥 Cierre'
+  ];
+  for (var i = 0; i < 10; i++) {
+    var pane = document.getElementById('tab-' + i);
+    if (!pane) continue;
+    var nav = document.createElement('div');
+    nav.className = 'tab-nav-btns';
+    var nextLabel = tabLabels[i + 1] || '';
+    nav.innerHTML = '<button class="btn-siguiente" onclick="showTab(' + (i + 1) + ')">Siguiente: ' + nextLabel + ' &rarr;</button>';
+    pane.appendChild(nav);
+  }
+})();
 </script>
 </body>
 </html>
