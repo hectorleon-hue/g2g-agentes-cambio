@@ -351,27 +351,31 @@ input[type=range]::-webkit-slider-thumb{
         <p>Tier 1 · Módulo 1 Parte B · 4 horas · Bloom: Aplicar</p>
       </div>
     </div>
+
     <div class="section-block">
       <h3>📌 Mi aprendizaje clave</h3>
       <textarea class="inp" id="s2_aprendizaje" oninput="onChange()" placeholder="Lo más importante de esta sesión..."></textarea>
     </div>
+
     <div class="section-block">
-      <h3>🔎 Diagnóstico ADKAR — Cambio real de mi organización</h3>
-      <p style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:12px;">Aplica el modelo a un cambio concreto que está ocurriendo en tu empresa ahora.</p>
-      <div class="field" style="margin-bottom:14px"><label>Nombre del cambio analizado</label><input type="text" class="inp" id="s2_cambio_nombre" oninput="onChange()" placeholder="Ej: Implementación de nuevo ERP"></div>
-      <div class="dyn-table-wrap"><table class="dyn-table">
-        <thead><tr><th>Componente</th><th>Nivel actual (1-5)</th><th>Evidencia / Señales que observas</th><th>Acción recomendada</th></tr></thead>
-        <tbody>
-          <tr><td style="color:var(--cian);font-weight:600">A · Conciencia</td><td><select oninput="onChange()"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select></td><td><textarea oninput="onChange()" placeholder="¿Qué observas?"></textarea></td><td><textarea oninput="onChange()" placeholder="¿Qué hacer?"></textarea></td></tr>
-          <tr><td style="color:var(--cian);font-weight:600">D · Deseo</td><td><select oninput="onChange()"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select></td><td><textarea oninput="onChange()" placeholder="¿Qué observas?"></textarea></td><td><textarea oninput="onChange()" placeholder="¿Qué hacer?"></textarea></td></tr>
-          <tr><td style="color:var(--cian);font-weight:600">K · Conocimiento</td><td><select oninput="onChange()"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select></td><td><textarea oninput="onChange()" placeholder="¿Qué observas?"></textarea></td><td><textarea oninput="onChange()" placeholder="¿Qué hacer?"></textarea></td></tr>
-          <tr><td style="color:var(--cian);font-weight:600">A · Habilidad</td><td><select oninput="onChange()"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select></td><td><textarea oninput="onChange()" placeholder="¿Qué observas?"></textarea></td><td><textarea oninput="onChange()" placeholder="¿Qué hacer?"></textarea></td></tr>
-          <tr><td style="color:var(--cian);font-weight:600">R · Refuerzo</td><td><select oninput="onChange()"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select></td><td><textarea oninput="onChange()" placeholder="¿Qué observas?"></textarea></td><td><textarea oninput="onChange()" placeholder="¿Qué hacer?"></textarea></td></tr>
+      <h3>🗺️ Mapa de Stakeholders — Awareness y Desire</h3>
+      <p style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:12px;">Trabaja sobre el caso asignado a tu equipo. Identifica 5 stakeholders clave, evalúa su posición actual en Awareness y Desire (1 a 5), y define una acción concreta para cada uno.</p>
+      <div class="field" style="margin-bottom:14px"><label>Cambio seleccionado de mi caso</label><input type="text" class="inp" id="s2_cambio_nombre" oninput="onChange()" placeholder="Ej: VentaRuta Digital — Distribuidora Regiomont"></div>
+      <div class="dyn-table-wrap"><table class="dyn-table" id="s2_sh_table">
+        <thead><tr><th>Nombre</th><th>Rol</th><th>A · Awareness (1-5)</th><th>D · Desire (1-5)</th><th>¿Qué lo IMPACTA?</th><th>¿Qué lo MOTIVA?</th><th>Acción para elevar A o D</th><th></th></tr></thead>
+        <tbody id="s2_sh_body">
+          <tr><td><input oninput="onChange()" placeholder="Nombre"></td><td><input oninput="onChange()" placeholder="Rol / puesto"></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><textarea oninput="onChange()" placeholder="¿Qué cambia en su día a día?"></textarea></td><td><textarea oninput="onChange()" placeholder="¿Qué le mueve?"></textarea></td><td><textarea oninput="onChange()" placeholder="Acción concreta..."></textarea></td><td><button class="btn-del-row" onclick="delRow(this)">✕</button></td></tr>
+          <tr><td><input oninput="onChange()" placeholder="Nombre"></td><td><input oninput="onChange()" placeholder="Rol / puesto"></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><textarea oninput="onChange()" placeholder="¿Qué cambia en su día a día?"></textarea></td><td><textarea oninput="onChange()" placeholder="¿Qué le mueve?"></textarea></td><td><textarea oninput="onChange()" placeholder="Acción concreta..."></textarea></td><td><button class="btn-del-row" onclick="delRow(this)">✕</button></td></tr>
+          <tr><td><input oninput="onChange()" placeholder="Nombre"></td><td><input oninput="onChange()" placeholder="Rol / puesto"></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><textarea oninput="onChange()" placeholder="¿Qué cambia en su día a día?"></textarea></td><td><textarea oninput="onChange()" placeholder="¿Qué le mueve?"></textarea></td><td><textarea oninput="onChange()" placeholder="Acción concreta..."></textarea></td><td><button class="btn-del-row" onclick="delRow(this)">✕</button></td></tr>
+          <tr><td><input oninput="onChange()" placeholder="Nombre"></td><td><input oninput="onChange()" placeholder="Rol / puesto"></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><textarea oninput="onChange()" placeholder="¿Qué cambia en su día a día?"></textarea></td><td><textarea oninput="onChange()" placeholder="¿Qué le mueve?"></textarea></td><td><textarea oninput="onChange()" placeholder="Acción concreta..."></textarea></td><td><button class="btn-del-row" onclick="delRow(this)">✕</button></td></tr>
+          <tr><td><input oninput="onChange()" placeholder="Nombre"></td><td><input oninput="onChange()" placeholder="Rol / puesto"></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><textarea oninput="onChange()" placeholder="¿Qué cambia en su día a día?"></textarea></td><td><textarea oninput="onChange()" placeholder="¿Qué le mueve?"></textarea></td><td><textarea oninput="onChange()" placeholder="Acción concreta..."></textarea></td><td><button class="btn-del-row" onclick="delRow(this)">✕</button></td></tr>
         </tbody>
       </table></div>
+      <button class="btn-add-row" onclick="addRow('s2_sh_body',7)">+ Agregar stakeholder</button>
     </div>
+
     <div class="section-block">
-      <h3>🗺️ Mi plan de abordaje — 3 acciones concretas</h3>
+      <h3>🎯 Mi plan de abordaje — 3 acciones concretas</h3>
       <div class="dyn-table-wrap"><table class="dyn-table" id="s2_plan_table">
         <thead><tr><th>#</th><th>Acción concreta</th><th>Responsable</th><th>Plazo</th><th>Componente ADKAR</th><th></th></tr></thead>
         <tbody id="s2_plan_body">
@@ -380,9 +384,18 @@ input[type=range]::-webkit-slider-thumb{
       </table></div>
       <button class="btn-add-row" onclick="addRow('s2_plan_body',5)">+ Agregar acción</button>
     </div>
+
     <div class="section-block green">
       <h3>✅ Mi compromiso de aplicación</h3>
       <textarea class="inp" id="s2_compromiso" oninput="onChange()" placeholder="Esta semana voy a..."></textarea>
+    </div>
+
+    <div class="section-block" style="border-left-color:#F4A261">
+      <h3>📋 Tarea asincrónica</h3>
+      <p style="font-size:13px;color:rgba(255,255,255,.72);margin-bottom:12px;line-height:1.55;">Documenta aquí el abordaje que tendrás con el stakeholder que definieron en conjunto con tu equipo. <strong style="color:#fff">La definición es grupal, la documentación es individual.</strong></p>
+      <div class="field" style="margin-bottom:12px"><label>Stakeholder elegido por el equipo</label><input type="text" class="inp" id="s2_tarea_stakeholder" oninput="onChange()" placeholder="Nombre y rol"></div>
+      <label style="font-size:12px;color:rgba(255,255,255,.5);">Mi abordaje</label>
+      <textarea class="inp" id="s2_tarea_abordaje" oninput="onChange()" style="margin-top:6px;min-height:120px" placeholder="Cómo lo voy a abordar: qué le voy a decir, en qué canal, cuándo, y qué espero lograr..."></textarea>
     </div>
   </div>
 
@@ -430,49 +443,61 @@ input[type=range]::-webkit-slider-thumb{
     <div class="session-header">
       <div class="session-badge badge-t1">S4</div>
       <div class="session-meta">
-        <h2>Mapa de Stakeholders + Evaluación Tier 1</h2>
-        <p>Tier 1 · Módulo 2 Parte B · 4 horas · Bloom: Aplicar · CIERRE TIER 1</p>
+        <h2>Stakeholders en Profundidad + Evaluación Tier 1</h2>
+        <p>Tier 1 · Módulo 2 Parte B · 4 horas · Bloom: Evaluar · CIERRE TIER 1</p>
       </div>
     </div>
+
     <div class="section-block">
       <h3>📌 Mi aprendizaje clave</h3>
       <textarea class="inp" id="s4_aprendizaje" oninput="onChange()" placeholder="Lo más importante de esta sesión..."></textarea>
     </div>
+
     <div class="section-block">
-      <h3>🗺️ Mi mapa de stakeholders</h3>
+      <h3>🗺️ Profundización del mapa — influencia × interés</h3>
+      <p style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:12px;">No empieces de cero: <strong style="color:rgba(255,255,255,.8)">retoma los cinco stakeholders que mapeaste en la Sesión 2</strong> y llévalos un nivel más profundo. Ahí evaluaste su Awareness y su Desire; aquí defines su posición en la matriz, la estrategia que vas a seguir con cada uno y el riesgo de no hacer nada.</p>
       <div class="dyn-table-wrap"><table class="dyn-table" id="s4_sh_table">
-        <thead><tr><th>Nombre / Rol</th><th>Posición ante el cambio</th><th>Influencia (1-5)</th><th>Estrategia de involucramiento</th><th></th></tr></thead>
+        <thead><tr><th>Stakeholder</th><th>Influencia (1-5)</th><th>Interés (1-5)</th><th>Cuadrante</th><th>Estrategia</th><th>Qué haré específicamente</th><th>Riesgo si no actúo</th><th></th></tr></thead>
         <tbody id="s4_sh_body">
-          <tr>
-            <td><input oninput="onChange()" placeholder="Nombre — Cargo"></td>
-            <td><select oninput="onChange()"><option>Promotor</option><option>Neutral</option><option>Resistente</option><option>Bloqueador</option></select></td>
-            <td><select oninput="onChange()"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select></td>
-            <td><textarea oninput="onChange()" placeholder="¿Qué harás con esta persona?"></textarea></td>
-            <td><button class="btn-del-row" onclick="delRow(this)">✕</button></td>
-          </tr>
+          <tr><td><input oninput="onChange()" placeholder="Nombre — del mapa de S2"></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><select oninput="onChange()"><option>Gestionar de cerca</option><option>Mantener satisfecho</option><option>Mantener informado</option><option>Monitorear</option></select></td><td><select oninput="onChange()"><option>Convertir</option><option>Neutralizar</option><option>Involucrar en el diseño</option><option>Comunicación general</option></select></td><td><textarea oninput="onChange()" placeholder="Acción concreta, con fecha"></textarea></td><td><textarea oninput="onChange()" placeholder="¿Qué pasa si no hago nada?"></textarea></td><td><button class="btn-del-row" onclick="delRow(this)">✕</button></td></tr>
+          <tr><td><input oninput="onChange()" placeholder="Nombre — del mapa de S2"></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><select oninput="onChange()"><option>Gestionar de cerca</option><option>Mantener satisfecho</option><option>Mantener informado</option><option>Monitorear</option></select></td><td><select oninput="onChange()"><option>Convertir</option><option>Neutralizar</option><option>Involucrar en el diseño</option><option>Comunicación general</option></select></td><td><textarea oninput="onChange()" placeholder="Acción concreta, con fecha"></textarea></td><td><textarea oninput="onChange()" placeholder="¿Qué pasa si no hago nada?"></textarea></td><td><button class="btn-del-row" onclick="delRow(this)">✕</button></td></tr>
+          <tr><td><input oninput="onChange()" placeholder="Nombre — del mapa de S2"></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><select oninput="onChange()"><option>Gestionar de cerca</option><option>Mantener satisfecho</option><option>Mantener informado</option><option>Monitorear</option></select></td><td><select oninput="onChange()"><option>Convertir</option><option>Neutralizar</option><option>Involucrar en el diseño</option><option>Comunicación general</option></select></td><td><textarea oninput="onChange()" placeholder="Acción concreta, con fecha"></textarea></td><td><textarea oninput="onChange()" placeholder="¿Qué pasa si no hago nada?"></textarea></td><td><button class="btn-del-row" onclick="delRow(this)">✕</button></td></tr>
+          <tr><td><input oninput="onChange()" placeholder="Nombre — del mapa de S2"></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><select oninput="onChange()"><option>Gestionar de cerca</option><option>Mantener satisfecho</option><option>Mantener informado</option><option>Monitorear</option></select></td><td><select oninput="onChange()"><option>Convertir</option><option>Neutralizar</option><option>Involucrar en el diseño</option><option>Comunicación general</option></select></td><td><textarea oninput="onChange()" placeholder="Acción concreta, con fecha"></textarea></td><td><textarea oninput="onChange()" placeholder="¿Qué pasa si no hago nada?"></textarea></td><td><button class="btn-del-row" onclick="delRow(this)">✕</button></td></tr>
+          <tr><td><input oninput="onChange()" placeholder="Nombre — del mapa de S2"></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><select oninput="onChange()"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td><select oninput="onChange()"><option>Gestionar de cerca</option><option>Mantener satisfecho</option><option>Mantener informado</option><option>Monitorear</option></select></td><td><select oninput="onChange()"><option>Convertir</option><option>Neutralizar</option><option>Involucrar en el diseño</option><option>Comunicación general</option></select></td><td><textarea oninput="onChange()" placeholder="Acción concreta, con fecha"></textarea></td><td><textarea oninput="onChange()" placeholder="¿Qué pasa si no hago nada?"></textarea></td><td><button class="btn-del-row" onclick="delRow(this)">✕</button></td></tr>
         </tbody>
       </table></div>
-      <button class="btn-add-row" onclick="addRow('s4_sh_body',4)">+ Agregar stakeholder</button>
+      <button class="btn-add-row" onclick="addRow('s4_sh_body',7)">+ Agregar stakeholder</button>
     </div>
+
     <div class="section-block">
       <h3>🏆 Mi patrocinador activo</h3>
       <div class="field"><label>Nombre y cargo</label><input type="text" class="inp" id="s4_sponsor" oninput="onChange()" placeholder="Quién es tu patrocinador activo"></div>
-      <div class="field" style="margin-top:12px"><label>¿Cómo lo activarás / mantendrás comprometido?</label><textarea class="inp" id="s4_sponsor_plan" oninput="onChange()" placeholder="Mi plan para activar al patrocinador..."></textarea></div>
+      <p style="font-size:12px;color:rgba(255,255,255,.5);margin:16px 0 10px;">Evalúa las tres tareas que un patrocinador no puede delegar:</p>
+      <div style="display:grid;gap:10px;">
+        <div><label style="font-size:13px;color:rgba(255,255,255,.8)">1. ¿Es activo y visible a lo largo del proyecto, no solo en el arranque?</label><select class="inp" id="s4_sponsor_abc1" onchange="onChange()" style="margin-top:4px;min-height:unset;resize:none"><option value="">Selecciona...</option><option>Sí, consistentemente</option><option>A veces</option><option>No</option><option>No lo sé todavía</option></select></div>
+        <div><label style="font-size:13px;color:rgba(255,255,255,.8)">2. ¿Construye coalición con sus pares de otras áreas?</label><select class="inp" id="s4_sponsor_abc2" onchange="onChange()" style="margin-top:4px;min-height:unset;resize:none"><option value="">Selecciona...</option><option>Sí, consistentemente</option><option>A veces</option><option>No</option><option>No lo sé todavía</option></select></div>
+        <div><label style="font-size:13px;color:rgba(255,255,255,.8)">3. ¿Comunica él mismo el «por qué» del cambio?</label><select class="inp" id="s4_sponsor_abc3" onchange="onChange()" style="margin-top:4px;min-height:unset;resize:none"><option value="">Selecciona...</option><option>Sí, consistentemente</option><option>A veces</option><option>No</option><option>No lo sé todavía</option></select></div>
+      </div>
+      <div class="field" style="margin-top:14px"><label>¿Cómo lo activarás en la tarea que le falta?</label><textarea class="inp" id="s4_sponsor_plan" oninput="onChange()" placeholder="Mi plan para activar al patrocinador..."></textarea></div>
     </div>
+
     <div class="section-block" style="border-color:rgba(51,180,210,.4)">
       <h3>📝 Autoevaluación Tier 1</h3>
-      <p style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:14px;">Evalúa tu dominio de los conceptos del Tier 1 antes de presentar tu evaluación.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:14px;">Evalúa tu dominio de los conceptos del Tier 1 antes de entregar tu portafolio.</p>
       <div style="display:grid;gap:10px;">
         <div><label style="font-size:13px;color:rgba(255,255,255,.8)">1. ¿Puedo explicar ADKAR con mis propias palabras?</label><select class="inp" id="s4_ev1" onchange="onChange()" style="margin-top:4px;min-height:unset;resize:none"><option value="">Selecciona...</option><option>5 — Sí, con total claridad y ejemplos</option><option>4 — Sí, con algunos titubeos</option><option>3 — Más o menos</option><option>2 — Tengo dudas importantes</option><option>1 — No, necesito repaso</option></select></div>
-        <div><label style="font-size:13px;color:rgba(255,255,255,.8)">2. ¿Apliqué el análisis de impacto a un caso real?</label><select class="inp" id="s4_ev2" onchange="onChange()" style="min-height:unset;resize:none;margin-top:4px"><option value="">Selecciona...</option><option>5 — Sí, lo completé con detalle</option><option>4 — Sí, aunque le falta profundidad</option><option>3 — Parcialmente</option><option>2 — Solo lo intenté</option><option>1 — No lo completé</option></select></div>
-        <div><label style="font-size:13px;color:rgba(255,255,255,.8)">3. ¿Construí un mapa de stakeholders completo?</label><select class="inp" id="s4_ev3" onchange="onChange()" style="min-height:unset;resize:none;margin-top:4px"><option value="">Selecciona...</option><option>5 — Sí, con estrategia para cada uno</option><option>4 — Sí, aunque incompleto</option><option>3 — Parcialmente</option><option>2 — Solo identifiqué algunos nombres</option><option>1 — No</option></select></div>
+        <div><label style="font-size:13px;color:rgba(255,255,255,.8)">2. ¿Apliqué el análisis de impacto por rol a mi caso?</label><select class="inp" id="s4_ev2" onchange="onChange()" style="margin-top:4px;min-height:unset;resize:none"><option value="">Selecciona...</option><option>5 — Sí, lo completé con detalle</option><option>4 — Sí, aunque le falta profundidad</option><option>3 — Parcialmente</option><option>2 — Solo lo intenté</option><option>1 — No lo completé</option></select></div>
+        <div><label style="font-size:13px;color:rgba(255,255,255,.8)">3. ¿Llevé mi mapa de S2 a estrategia por cuadrante?</label><select class="inp" id="s4_ev3" onchange="onChange()" style="margin-top:4px;min-height:unset;resize:none"><option value="">Selecciona...</option><option>5 — Sí, con estrategia y riesgo para cada uno</option><option>4 — Sí, aunque incompleto</option><option>3 — Parcialmente</option><option>2 — Solo ubiqué el cuadrante</option><option>1 — No</option></select></div>
+        <div><label style="font-size:13px;color:rgba(255,255,255,.8)">4. ¿Evalué a mi patrocinador contra sus tres tareas?</label><select class="inp" id="s4_ev4" onchange="onChange()" style="margin-top:4px;min-height:unset;resize:none"><option value="">Selecciona...</option><option>5 — Sí, y tengo plan para la que le falta</option><option>4 — Sí, pero sin plan</option><option>3 — Parcialmente</option><option>2 — Solo lo identifiqué</option><option>1 — No</option></select></div>
       </div>
     </div>
+
     <div class="cert-badge">
       <div class="cert-icon">🎓</div>
-      <h3>TIER 1 · Practitioner Básico</h3>
-      <p>Al completar S1–S4 y presentar tu análisis de impacto + mapa de stakeholders,<br>recibes la certificación Tier 1 de Agentes de Cambio G2G.</p>
+      <h3>TIER 1 · Analista de Impacto</h3>
+      <p>Al completar las secciones S1 a S4 del cuaderno —diagnóstico, estrategia, impacto por rol y<br>estrategia de stakeholders— recibes la certificación Tier 1 de Agentes de Cambio G2G.</p>
     </div>
+
     <div class="section-block green">
       <h3>✅ Mi compromiso de aplicación</h3>
       <textarea class="inp" id="s4_compromiso" oninput="onChange()" placeholder="Esta semana voy a..."></textarea>
@@ -781,6 +806,31 @@ var SUPABASE_URL = 'https://istfqqmuxcuhduakrojo.supabase.co';
 var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlzdGZxcW11eGN1aGR1YWtyb2pvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1MDgxNDQsImV4cCI6MjEwMTA4NDE0NH0.vWmIXGut_TO0Azw3VpYad0cG-pil5eVu9EsUiOq1NFc';
 var TABLE_NAME   = 'ac_cuadernos';
 
+// Tipos y opciones de cada tabla dinamica - fuente unica para serializar, poblar y agregar filas.
+var G2G_TABLE_TYPES = {
+  's1_inv_body': ['input','textarea','textarea'],
+  's2_sh_body': ['input','input','select','select','textarea','textarea','textarea'],
+  's2_sh_body': ['input','input','select','select','textarea','textarea','textarea'],
+    's2_plan_body': ['textarea','input','input','select'],
+  's3_matriz_body': ['input','input','select','select','textarea'],
+  's4_sh_body': ['input','select','select','select','select','textarea','textarea'],
+  's5_mens_body': ['input','textarea','textarea','textarea','select'],
+  's6_plan_body': ['textarea','input','select','input','input','select'],
+  's7_ent_body': ['input','textarea','select','input','input'],
+  's9_plan_body': ['select','input','textarea','textarea']
+};
+var G2G_SELECT_OPTS = {
+  's2_sh_body': {2:['1','2','3','4','5'],3:['1','2','3','4','5']},
+  's2_sh_body': {2:['1','2','3','4','5'],3:['1','2','3','4','5']},
+    's2_plan_body': {3:['A','D','K','Ab','R']},
+  's3_matriz_body': {2:['1','2','3','4','5'],3:['Proceso','Conducta','Herramienta/TI','Estructura','Cultural']},
+  's4_sh_body': {1:['1','2','3','4','5'],2:['1','2','3','4','5'],3:['Gestionar de cerca','Mantener satisfecho','Mantener informado','Monitorear'],4:['Convertir','Neutralizar','Involucrar en el diseño','Comunicación general']},
+  's5_mens_body': {4:['Teams/Zoom','Email','Reunión presencial','Póster/Cartelera','Video','Otro']},
+  's6_plan_body': {2:['Reunión','Email','Video','Boletín','Cartelera','Otro'],5:['Pendiente','En proceso','Completado']},
+  's7_ent_body': {2:['Taller presencial','E-learning','Coaching 1:1','OJT / En el puesto','Videoconferencia']},
+  's9_plan_body': {0:['Apertura','Concepto','Práctica guiada','Reto / Aplicación','Cierre']}
+};
+
 // ══ STATE
 var DB = null;
 var REC_ID = null;
@@ -885,7 +935,7 @@ function poblarCampos(datos) {
     }
   });
   // Tables
-  var tables = ['s1_inv_body','s2_plan_body','s3_matriz_body','s4_sh_body','s5_mens_body',
+  var tables = ['s1_inv_body','s2_sh_body','s2_plan_body','s3_matriz_body','s4_sh_body','s5_mens_body',
                  's6_plan_body','s7_ent_body','s9_plan_body'];
   tables.forEach(function(tbodyId) {
     if (datos[tbodyId]) {
@@ -903,10 +953,14 @@ function poblarCampos(datos) {
         cols.forEach(function(col, ci) {
           var td = row.insertCell();
           var val = rowData[col];
-          var tagMap = (rowData['_meta'] && rowData['_meta'][ci]) || 'input';
+          var tagMap = (G2G_TABLE_TYPES[tbodyId] && G2G_TABLE_TYPES[tbodyId][ci]) || (rowData['_meta'] && rowData['_meta'][ci]) || 'input';
           var el;
           if (tagMap === 'textarea') { el = document.createElement('textarea'); el.style.minHeight='52px'; }
-          else if (tagMap === 'select') { el = document.createElement('select'); }
+          else if (tagMap === 'select') {
+            el = document.createElement('select');
+            var op = (G2G_SELECT_OPTS[tbodyId] || {})[ci] || [];
+            op.forEach(function(o){ var x=document.createElement('option'); x.textContent=o; el.appendChild(x); });
+          }
           else { el = document.createElement('input'); }
           if (tagMap === 'select') {
             var opts = rowData['_opts'] && rowData['_opts'][ci] ? rowData['_opts'][ci] : [];
@@ -935,9 +989,10 @@ function serializarDatos() {
   // Tables
   var tableMap = {
     's1_inv_body': ['input','textarea','textarea'],
+    's2_sh_body': ['input','input','select','select','textarea','textarea','textarea'],
     's2_plan_body': ['textarea','input','input','select'],
     's3_matriz_body': ['input','input','select','select','textarea'],
-    's4_sh_body': ['input','select','select','textarea'],
+    's4_sh_body': ['input','select','select','select','select','textarea','textarea'],
     's5_mens_body': ['input','textarea','textarea','textarea','select'],
     's6_plan_body': ['textarea','input','select','input','input','select'],
     's7_ent_body': ['input','textarea','select','input','input'],
@@ -1010,7 +1065,7 @@ function actualizarResumen() {
     {id:'s1_compromiso',lab:'S1 · Fundamentos ADKAR'},
     {id:'s2_compromiso',lab:'S2 · Estrategia del Cambio'},
     {id:'s3_compromiso',lab:'S3 · Análisis de Impacto'},
-    {id:'s4_compromiso',lab:'S4 · Stakeholders'},
+    {id:'s4_compromiso',lab:'S4 · Stakeholders en Profundidad'},
     {id:'s5_compromiso',lab:'S5 · Comunicación Estratégica'},
     {id:'s6_compromiso',lab:'S6 · Plan de Comunicación'},
     {id:'s7_compromiso',lab:'S7 · Entrenamiento'},
@@ -1038,18 +1093,20 @@ function addRow(tbodyId, numCols) {
   var tbody = document.getElementById(tbodyId);
   var tableMap = {
     's1_inv_body': [['input','textarea','textarea']],
+    's2_sh_body': [['input','input','select','select','textarea','textarea','textarea']],
     's2_plan_body': [['textarea','input','input','select']],
     's3_matriz_body': [['input','number','select','select','textarea']],
-    's4_sh_body': [['input','select','select','textarea']],
+    's4_sh_body': [['input','select','select','select','select','textarea','textarea']],
     's5_mens_body': [['input','textarea','textarea','textarea','select']],
     's6_plan_body': [['textarea','input','select','input','input','select']],
     's7_ent_body': [['input','textarea','select','input','input']],
     's9_plan_body': [['select','input','textarea','textarea']]
   };
   var selectOpts = {
+    's2_sh_body': {2:['1','2','3','4','5'],3:['1','2','3','4','5']},
     's2_plan_body': {3:['A','D','K','Ab','R']},
     's3_matriz_body': {2:['1','2','3','4','5'],3:['Proceso','Conducta','Herramienta/TI','Estructura','Cultural']},
-    's4_sh_body': {1:['Promotor','Neutral','Resistente','Bloqueador'],2:['1','2','3','4','5']},
+    's4_sh_body': {1:['1','2','3','4','5'],2:['1','2','3','4','5'],3:['Gestionar de cerca','Mantener satisfecho','Mantener informado','Monitorear'],4:['Convertir','Neutralizar','Involucrar en el diseño','Comunicación general']},
     's5_mens_body': {4:['Teams/Zoom','Email','Reunión presencial','Póster/Cartelera','Video','Otro']},
     's6_plan_body': {2:['Reunión','Email','Video','Boletín','Cartelera','Otro'],5:['Pendiente','En proceso','Completado']},
     's7_ent_body': {2:['Taller presencial','E-learning','Coaching 1:1','OJT / En el puesto','Videoconferencia']},
@@ -1333,9 +1390,11 @@ function exportarExcel() {
   ], C);
 
   addSessionSheet('S2 · Estrategia del Cambio', [
-    {title:'Aprendizaje clave', fields:[{label:'Mi aprendizaje',value:val('s2_aprendizaje')},{label:'Cambio analizado',value:val('s2_cambio_nombre')}]},
+    {title:'Aprendizaje clave', fields:[{label:'Mi aprendizaje',value:val('s2_aprendizaje')},{label:'Cambio seleccionado del caso',value:val('s2_cambio_nombre')}]},
+    {title:'Mapa de Stakeholders — Awareness y Desire', table:{headers:['Nombre','Rol','A · Awareness','D · Desire','¿Qué lo impacta?','¿Qué lo motiva?','Acción para elevar A o D'],rows:readTable('s2_sh_body',7)}},
     {title:'Plan de abordaje', table:{headers:['Acción','Responsable','Plazo','Componente ADKAR'],rows:readTable('s2_plan_body',4)}},
-    {title:'Compromiso', fields:[{label:'Mi compromiso',value:val('s2_compromiso')}]}
+    {title:'Compromiso', fields:[{label:'Mi compromiso',value:val('s2_compromiso')}]},
+    {title:'Tarea asincrónica', fields:[{label:'Stakeholder elegido por el equipo',value:val('s2_tarea_stakeholder')},{label:'Mi abordaje',value:val('s2_tarea_abordaje')}]}
   ], C);
 
   addSessionSheet('S3 · Análisis de Impacto', [
@@ -1344,11 +1403,11 @@ function exportarExcel() {
     {title:'Hallazgo y compromiso', fields:[{label:'Hallazgo principal',value:val('s3_hallazgo')},{label:'Mi compromiso',value:val('s3_compromiso')}]}
   ], C);
 
-  addSessionSheet('S4 · Mapa de Stakeholders', [
+  addSessionSheet('S4 · Stakeholders en Profundidad', [
     {title:'Aprendizaje clave', fields:[{label:'Mi aprendizaje',value:val('s4_aprendizaje')}]},
-    {title:'Mapa de stakeholders', table:{headers:['Nombre / Rol','Posición','Influencia (1-5)','Estrategia'],rows:readTable('s4_sh_body',4)}},
-    {title:'Patrocinador activo', fields:[{label:'Nombre y cargo',value:val('s4_sponsor')},{label:'Plan de activación',value:val('s4_sponsor_plan')}]},
-    {title:'Autoevaluación Tier 1', fields:[{label:'¿Explico ADKAR?',value:val('s4_ev1')},{label:'¿Apliqué análisis de impacto?',value:val('s4_ev2')},{label:'¿Construí mapa de stakeholders?',value:val('s4_ev3')}]},
+    {title:'Profundización del mapa de stakeholders', table:{headers:['Stakeholder','Influencia','Interés','Cuadrante','Estrategia','Qué haré','Riesgo si no actúo'],rows:readTable('s4_sh_body',7)}},
+    {title:'Patrocinador activo', fields:[{label:'Nombre y cargo',value:val('s4_sponsor')},{label:'¿Activo y visible?',value:val('s4_sponsor_abc1')},{label:'¿Construye coalición?',value:val('s4_sponsor_abc2')},{label:'¿Comunica el por qué?',value:val('s4_sponsor_abc3')},{label:'Plan de activación',value:val('s4_sponsor_plan')}]},
+    {title:'Autoevaluación Tier 1', fields:[{label:'¿Explico ADKAR?',value:val('s4_ev1')},{label:'¿Apliqué análisis de impacto?',value:val('s4_ev2')},{label:'¿Llevé el mapa a estrategia?',value:val('s4_ev3')},{label:'¿Evalué al patrocinador?',value:val('s4_ev4')}]},
     {title:'Compromiso', fields:[{label:'Mi compromiso',value:val('s4_compromiso')}]}
   ], C);
 
