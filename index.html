@@ -403,8 +403,8 @@ input[type=range]::-webkit-slider-thumb{
     <div class="session-header">
       <div class="session-badge badge-t1">S3</div>
       <div class="session-meta">
-        <h2>Análisis de Impacto del Cambio</h2>
-        <p>Tier 1 · Módulo 2 Parte A · 4 horas · Bloom: Analizar</p>
+        <h2>Análisis de Impacto y Plan de Mitigación</h2>
+        <p>Tier 1 · Módulo 2 Parte A · 4 horas · Bloom: Analizar y Aplicar</p>
       </div>
     </div>
     <div class="section-block">
@@ -413,15 +413,15 @@ input[type=range]::-webkit-slider-thumb{
     </div>
     <div class="section-block">
       <h3>📊 Matriz de análisis de impacto</h3>
-      <p style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:12px;">Documenta las áreas impactadas, cuántas personas y el tipo de cambio que enfrentan.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:12px;">Documenta las áreas impactadas, cuántas personas y a qué categoría pertenece el impacto que enfrentan: <strong style="color:rgba(255,255,255,.8)">Proceso · Herramienta · Tecnología · Conducta · Estructura · Cultura</strong>. Una fila por grupo, no por persona.</p>
       <div class="dyn-table-wrap"><table class="dyn-table" id="s3_matriz_table">
-        <thead><tr><th>Área / Grupo</th><th># Personas</th><th>Nivel impacto (1-5)</th><th>Tipo de cambio</th><th>Lo que más cambia</th><th></th></tr></thead>
+        <thead><tr><th>Área / Grupo</th><th># Personas</th><th>Nivel impacto (1-5)</th><th>Categoría de impacto</th><th>Lo que más cambia</th><th></th></tr></thead>
         <tbody id="s3_matriz_body">
           <tr>
             <td><input oninput="onChange()" placeholder="Ej: Ventas"></td>
             <td><input type="number" oninput="onChange()" placeholder="0" style="width:70px" min="0"></td>
             <td><select oninput="onChange()"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select></td>
-            <td><select oninput="onChange()"><option>Proceso</option><option>Conducta</option><option>Herramienta/TI</option><option>Estructura</option><option>Cultural</option></select></td>
+            <td><select oninput="onChange()"><option>Proceso</option><option>Herramienta</option><option>Tecnología</option><option>Conducta</option><option>Estructura</option><option>Cultura</option></select></td>
             <td><textarea oninput="onChange()" placeholder="Describe..."></textarea></td>
             <td><button class="btn-del-row" onclick="delRow(this)">✕</button></td>
           </tr>
@@ -432,6 +432,21 @@ input[type=range]::-webkit-slider-thumb{
     <div class="section-block">
       <h3>💡 Mi hallazgo principal de impacto</h3>
       <textarea class="inp" id="s3_hallazgo" oninput="onChange()" placeholder="El área / grupo de mayor impacto es... porque..."></textarea>
+    </div>
+
+    <div class="section-block">
+      <h3>🛡️ Plan de mitigación de impactos</h3>
+      <p style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:12px;">Una fila por cada impacto de <strong style="color:rgba(255,255,255,.8)">nivel 4 o 5</strong> de tu matriz. Recuerda que cada categoría se mitiga con una palanca distinta: Proceso → rediseño y job aids · Herramienta → práctica con la herramienta real · Tecnología → soporte en vivo y datos limpios · Conducta → modelaje del jefe y retroalimentación · Estructura → claridad de decisiones y sponsor · Cultura → rediseño de incentivos. Si tu plan solo tiene capacitación, estás mitigando una sola categoría de seis.</p>
+      <div class="dyn-table-wrap"><table class="dyn-table" id="s3_mitigacion_table">
+        <thead><tr><th>Impacto a mitigar</th><th>Categoría</th><th>Riesgo si no se mitiga</th><th>Acción de mitigación</th><th>Responsable y fecha</th><th>Señal de que funcionó</th><th></th></tr></thead>
+        <tbody id="s3_mitigacion_body">
+          <tr><td><textarea oninput="onChange()" placeholder="Qué le cambia exactamente a ese grupo"></textarea></td><td><select oninput="onChange()"><option>Proceso</option><option>Herramienta</option><option>Tecnología</option><option>Conducta</option><option>Estructura</option><option>Cultura</option></select></td><td><select oninput="onChange()"><option>Alto</option><option selected>Medio</option><option>Bajo</option></select></td><td><textarea oninput="onChange()" placeholder="Una acción concreta, en verbo"></textarea></td><td><input oninput="onChange()" placeholder="Nombre y fecha"></td><td><textarea oninput="onChange()" placeholder="Qué vas a ver o medir"></textarea></td><td><button class="btn-del-row" onclick="delRow(this)">✕</button></td></tr>
+          <tr><td><textarea oninput="onChange()" placeholder="Qué le cambia exactamente a ese grupo"></textarea></td><td><select oninput="onChange()"><option>Proceso</option><option>Herramienta</option><option>Tecnología</option><option>Conducta</option><option>Estructura</option><option>Cultura</option></select></td><td><select oninput="onChange()"><option>Alto</option><option selected>Medio</option><option>Bajo</option></select></td><td><textarea oninput="onChange()" placeholder="Una acción concreta, en verbo"></textarea></td><td><input oninput="onChange()" placeholder="Nombre y fecha"></td><td><textarea oninput="onChange()" placeholder="Qué vas a ver o medir"></textarea></td><td><button class="btn-del-row" onclick="delRow(this)">✕</button></td></tr>
+          <tr><td><textarea oninput="onChange()" placeholder="Qué le cambia exactamente a ese grupo"></textarea></td><td><select oninput="onChange()"><option>Proceso</option><option>Herramienta</option><option>Tecnología</option><option>Conducta</option><option>Estructura</option><option>Cultura</option></select></td><td><select oninput="onChange()"><option>Alto</option><option selected>Medio</option><option>Bajo</option></select></td><td><textarea oninput="onChange()" placeholder="Una acción concreta, en verbo"></textarea></td><td><input oninput="onChange()" placeholder="Nombre y fecha"></td><td><textarea oninput="onChange()" placeholder="Qué vas a ver o medir"></textarea></td><td><button class="btn-del-row" onclick="delRow(this)">✕</button></td></tr>
+        </tbody>
+      </table></div>
+      <button class="btn-add-row" onclick="addRow('s3_mitigacion_body',6)">+ Agregar impacto a mitigar</button>
+      <p style="font-size:12px;color:rgba(255,255,255,.45);margin-top:10px;">Prueba de calidad: si alguien que no estuvo en la sesión puede ejecutar tu fila sin preguntarte nada, está bien escrita. Guarda este plan — en S4 le asignas patrocinador a cada acción.</p>
     </div>
     <div class="section-block green">
       <h3>✅ Mi compromiso de aplicación</h3>
@@ -813,6 +828,7 @@ var G2G_TABLE_TYPES = {
   's2_sh_body': ['input','input','select','select','textarea','textarea','textarea'],
     's2_plan_body': ['textarea','input','input','select'],
   's3_matriz_body': ['input','input','select','select','textarea'],
+  's3_mitigacion_body': ['textarea','select','select','textarea','input','textarea'],
   's4_sh_body': ['input','select','select','select','select','textarea','textarea'],
   's5_mens_body': ['input','textarea','textarea','textarea','select'],
   's6_plan_body': ['textarea','input','select','input','input','select'],
@@ -823,7 +839,8 @@ var G2G_SELECT_OPTS = {
   's2_sh_body': {2:['1','2','3','4','5'],3:['1','2','3','4','5']},
   's2_sh_body': {2:['1','2','3','4','5'],3:['1','2','3','4','5']},
     's2_plan_body': {3:['A','D','K','Ab','R']},
-  's3_matriz_body': {2:['1','2','3','4','5'],3:['Proceso','Conducta','Herramienta/TI','Estructura','Cultural']},
+  's3_matriz_body': {2:['1','2','3','4','5'],3:['Proceso','Herramienta','Tecnología','Conducta','Estructura','Cultura']},
+  's3_mitigacion_body': {1:['Proceso','Herramienta','Tecnología','Conducta','Estructura','Cultura'],2:['Alto','Medio','Bajo']},
   's4_sh_body': {1:['1','2','3','4','5'],2:['1','2','3','4','5'],3:['Gestionar de cerca','Mantener satisfecho','Mantener informado','Monitorear'],4:['Convertir','Neutralizar','Involucrar en el diseño','Comunicación general']},
   's5_mens_body': {4:['Teams/Zoom','Email','Reunión presencial','Póster/Cartelera','Video','Otro']},
   's6_plan_body': {2:['Reunión','Email','Video','Boletín','Cartelera','Otro'],5:['Pendiente','En proceso','Completado']},
@@ -935,7 +952,7 @@ function poblarCampos(datos) {
     }
   });
   // Tables
-  var tables = ['s1_inv_body','s2_sh_body','s2_plan_body','s3_matriz_body','s4_sh_body','s5_mens_body',
+  var tables = ['s1_inv_body','s2_sh_body','s2_plan_body','s3_matriz_body','s3_mitigacion_body','s4_sh_body','s5_mens_body',
                  's6_plan_body','s7_ent_body','s9_plan_body'];
   tables.forEach(function(tbodyId) {
     if (datos[tbodyId]) {
@@ -992,6 +1009,7 @@ function serializarDatos() {
     's2_sh_body': ['input','input','select','select','textarea','textarea','textarea'],
     's2_plan_body': ['textarea','input','input','select'],
     's3_matriz_body': ['input','input','select','select','textarea'],
+    's3_mitigacion_body': ['textarea','select','select','textarea','input','textarea'],
     's4_sh_body': ['input','select','select','select','select','textarea','textarea'],
     's5_mens_body': ['input','textarea','textarea','textarea','select'],
     's6_plan_body': ['textarea','input','select','input','input','select'],
@@ -1096,6 +1114,7 @@ function addRow(tbodyId, numCols) {
     's2_sh_body': [['input','input','select','select','textarea','textarea','textarea']],
     's2_plan_body': [['textarea','input','input','select']],
     's3_matriz_body': [['input','number','select','select','textarea']],
+    's3_mitigacion_body': [['textarea','select','select','textarea','input','textarea']],
     's4_sh_body': [['input','select','select','select','select','textarea','textarea']],
     's5_mens_body': [['input','textarea','textarea','textarea','select']],
     's6_plan_body': [['textarea','input','select','input','input','select']],
@@ -1105,7 +1124,8 @@ function addRow(tbodyId, numCols) {
   var selectOpts = {
     's2_sh_body': {2:['1','2','3','4','5'],3:['1','2','3','4','5']},
     's2_plan_body': {3:['A','D','K','Ab','R']},
-    's3_matriz_body': {2:['1','2','3','4','5'],3:['Proceso','Conducta','Herramienta/TI','Estructura','Cultural']},
+    's3_matriz_body': {2:['1','2','3','4','5'],3:['Proceso','Herramienta','Tecnología','Conducta','Estructura','Cultura']},
+    's3_mitigacion_body': {1:['Proceso','Herramienta','Tecnología','Conducta','Estructura','Cultura'],2:['Alto','Medio','Bajo']},
     's4_sh_body': {1:['1','2','3','4','5'],2:['1','2','3','4','5'],3:['Gestionar de cerca','Mantener satisfecho','Mantener informado','Monitorear'],4:['Convertir','Neutralizar','Involucrar en el diseño','Comunicación general']},
     's5_mens_body': {4:['Teams/Zoom','Email','Reunión presencial','Póster/Cartelera','Video','Otro']},
     's6_plan_body': {2:['Reunión','Email','Video','Boletín','Cartelera','Otro'],5:['Pendiente','En proceso','Completado']},
@@ -1399,7 +1419,8 @@ function exportarExcel() {
 
   addSessionSheet('S3 · Análisis de Impacto', [
     {title:'Aprendizaje clave', fields:[{label:'Mi aprendizaje',value:val('s3_aprendizaje')}]},
-    {title:'Matriz de impacto', table:{headers:['Área / Grupo','# Personas','Nivel','Tipo','Lo que más cambia'],rows:readTable('s3_matriz_body',5)}},
+    {title:'Matriz de impacto', table:{headers:['Área / Grupo','# Personas','Nivel','Categoría de impacto','Lo que más cambia'],rows:readTable('s3_matriz_body',5)}},
+    {title:'Plan de mitigación de impactos', table:{headers:['Impacto a mitigar','Categoría','Riesgo si no se mitiga','Acción de mitigación','Responsable y fecha','Señal de que funcionó'],rows:readTable('s3_mitigacion_body',6)}},
     {title:'Hallazgo y compromiso', fields:[{label:'Hallazgo principal',value:val('s3_hallazgo')},{label:'Mi compromiso',value:val('s3_compromiso')}]}
   ], C);
 
