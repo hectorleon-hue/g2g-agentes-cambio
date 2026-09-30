@@ -172,6 +172,39 @@ textarea.inp::placeholder,input.inp::placeholder{color:rgba(255,255,255,.3);}
 .btn-refresh-sug{margin-left:auto;background:none;border:1px solid rgba(244,162,97,.4);color:var(--naranja);border-radius:50px;padding:3px 11px;font-size:10px;font-weight:700;cursor:pointer;letter-spacing:.04em;}
 .btn-refresh-sug:hover{background:rgba(244,162,97,.18);}
 .sug-vacio{font-size:12px;color:rgba(255,255,255,.45);font-style:italic;line-height:1.55;}
+/* ── S7 · Go-live y gantt ── */
+.golive-box{background:rgba(190,40,49,.08);border:1px solid rgba(190,40,49,.4);border-radius:10px;padding:14px 16px;margin-bottom:16px;}
+.golive-grid{display:grid;grid-template-columns:235px 1fr;gap:14px;align-items:end;}
+.golive-grid label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--rojo-vivo);display:block;margin-bottom:5px;}
+.golive-grid input{width:100%;background:rgba(4,19,40,.65);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:9px 11px;color:#fff;font-family:var(--font-b);font-size:13px;}
+.golive-grid input:focus{outline:none;border-color:var(--rojo-vivo);box-shadow:0 0 0 3px rgba(190,40,49,.15);}
+.golive-nota{font-size:12px;color:rgba(255,255,255,.55);line-height:1.55;margin-top:11px;}
+.gantt-wrap{margin-top:18px;}
+.gantt-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-family:var(--font-t);font-size:11.5px;font-weight:800;color:var(--cian);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;}
+.gantt-scroll{overflow-x:auto;border:1px solid rgba(255,255,255,.1);border-radius:10px;background:rgba(4,19,40,.5);}
+.gantt{min-width:1040px;}
+.gantt-row{display:grid;grid-template-columns:230px repeat(13,1fr);align-items:stretch;border-bottom:1px solid rgba(255,255,255,.06);}
+.gantt-row:last-child{border-bottom:none;}
+.gantt-row.enc{background:rgba(255,255,255,.04);position:sticky;top:0;}
+.gantt-c{padding:7px 5px;text-align:center;font-size:10px;color:rgba(255,255,255,.55);border-left:1px solid rgba(255,255,255,.05);min-height:34px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;}
+.gantt-c.cero{background:rgba(190,40,49,.14);box-shadow:inset 2px 0 0 var(--rojo-vivo),inset -2px 0 0 var(--rojo-vivo);}
+.gantt-c.post{background:rgba(255,255,255,.02);}
+.gantt-sem{font-weight:800;color:rgba(255,255,255,.8);font-size:10.5px;}
+.gantt-fec{font-size:8.5px;color:rgba(255,255,255,.4);letter-spacing:.02em;}
+.gantt-lab{padding:8px 11px;border-right:1px solid rgba(255,255,255,.1);}
+.gantt-lab .gl-rol{font-size:12px;font-weight:700;color:rgba(255,255,255,.92);line-height:1.25;}
+.gantt-lab .gl-act{font-size:10.5px;color:rgba(255,255,255,.5);line-height:1.35;margin-top:2px;}
+.gantt-lab .gl-kpi{display:inline-block;margin-top:5px;font-size:9px;font-weight:700;letter-spacing:.04em;border-radius:50px;padding:2px 8px;background:rgba(51,180,210,.16);color:var(--cian);border:1px solid rgba(51,180,210,.4);}
+.gantt-lab .gl-kpi.falta{background:rgba(244,162,97,.16);color:var(--naranja);border-color:rgba(244,162,97,.45);}
+.gantt-barra{align-self:center;width:100%;border-radius:50px;padding:4px 6px;font-size:9.5px;font-weight:700;text-align:center;color:var(--navy);line-height:1.2;overflow:hidden;}
+.gantt-barra.pre{background:var(--cian);}
+.gantt-barra.cero{background:var(--rojo-vivo);color:#fff;}
+.gantt-barra.post{background:var(--verde);color:#fff;}
+.gantt-alerta{font-size:11.5px;line-height:1.55;margin-top:10px;padding:9px 12px;border-radius:8px;background:rgba(244,162,97,.1);border:1px solid rgba(244,162,97,.4);color:rgba(255,255,255,.75);}
+.gantt-alerta strong{color:var(--naranja);}
+.gantt-ok{font-size:11.5px;margin-top:10px;padding:9px 12px;border-radius:8px;background:rgba(49,165,64,.1);border:1px solid rgba(49,165,64,.4);color:rgba(255,255,255,.75);}
+.gantt-ok strong{color:var(--verde);}
+.gantt-vacio{padding:16px;font-size:12px;color:rgba(255,255,255,.45);font-style:italic;}
 tr.fila-sugerida td{background:rgba(244,162,97,.06);vertical-align:bottom;}
 .sug-pill{display:block;background:rgba(244,162,97,.2);color:var(--naranja);border:1px solid rgba(244,162,97,.55);border-radius:50px;padding:1px 8px;font-size:8.5px;font-weight:700;letter-spacing:.07em;margin-bottom:5px;width:max-content;}
 .btn-del-row{
@@ -628,6 +661,20 @@ input[type=range]::-webkit-slider-thumb{
       <h3>🎓 Mi Plan de Entrenamiento</h3>
       <p style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:14px;line-height:1.55;">Tu plan de entrenamiento <strong style="color:rgba(255,255,255,.85)">es un plan de mitigación</strong>. Cada fila debería responder a un impacto que detectaste en la Sesión 3: si una competencia de esta tabla no mitiga ningún impacto, estás entrenando por costumbre y no por necesidad; y si un impacto de nivel 4 o 5 no aparece aquí ni en otra palanca, quedó sin mitigar. Recuerda que el entrenamiento mitiga bien las categorías <strong style="color:rgba(255,255,255,.85)">Proceso, Herramienta, Tecnología y Conducta</strong>; <strong style="color:rgba(255,255,255,.85)">Estructura y Cultura</strong> exigen otras palancas (decisiones, sponsor, incentivos).</p>
 
+      <div class="golive-box">
+        <div class="golive-grid">
+          <div>
+            <label>🚩 Fecha propuesta de Go-live</label>
+            <input type="date" id="s7_golive" oninput="onChange()">
+          </div>
+          <div>
+            <label>¿Qué ancla esa fecha?</label>
+            <input type="text" id="s7_golive_ancla" oninput="onChange()" placeholder="Ej: arranque de temporada alta, cierre fiscal, liberación del sistema, fin de contrato del proveedor">
+          </div>
+        </div>
+        <p class="golive-nota">La semana del Go-live es <strong style="color:var(--rojo-vivo)">S0</strong>. Todo lo anterior se numera hacia atrás: <strong style="color:rgba(255,255,255,.8)">S-1</strong> es la semana previa, <strong style="color:rgba(255,255,255,.8)">S-2</strong> dos semanas antes, y así. Si tu entrenamiento cae en S0, el usuario final está aprendiendo el mismo día que el cambio se vuelve real: eso no es capacitación, es improvisación. La regla práctica es cerrar el entrenamiento operativo entre <strong style="color:rgba(255,255,255,.8)">S-3 y S-1</strong> — lo bastante cerca para que no se olvide, lo bastante lejos para corregir lo que salga mal.</p>
+      </div>
+
       <div class="sug-box">
         <h4>💡 Sugerencias desde tu análisis de impacto <span class="sug-tag">SUGERENCIA · NO ES TU RESPUESTA</span>
           <button class="btn-refresh-sug" onclick="refrescarSugerenciasS7()">↻ Actualizar</button>
@@ -638,7 +685,7 @@ input[type=range]::-webkit-slider-thumb{
 
       <datalist id="s7_roles_dl"></datalist>
       <div class="dyn-table-wrap"><table class="dyn-table" id="s7_ent_table">
-        <thead><tr><th>Grupo objetivo</th><th>Rol impactado <span style="font-weight:400;text-transform:none;opacity:.7">(S3)</span></th><th>Competencia a desarrollar</th><th>Tipo de entrenamiento</th><th>Duración</th><th>KPI de adopción</th><th></th></tr></thead>
+        <thead><tr><th>Grupo objetivo</th><th>Rol impactado <span style="font-weight:400;text-transform:none;opacity:.7">(S3)</span></th><th>Competencia a desarrollar</th><th>Tipo de entrenamiento</th><th>Duración</th><th>Semana <span style="font-weight:400;text-transform:none;opacity:.7">(vs. Go-live)</span></th><th>KPI de adopción</th><th></th></tr></thead>
         <tbody id="s7_ent_body">
           <tr>
             <td><input oninput="onChange()" placeholder="Ej: Operaciones"></td>
@@ -646,14 +693,44 @@ input[type=range]::-webkit-slider-thumb{
             <td><textarea oninput="onChange()" placeholder="¿Qué debe saber/poder hacer?"></textarea></td>
             <td><select oninput="onChange()"><option>Taller presencial</option><option>E-learning</option><option>Coaching 1:1</option><option>OJT / En el puesto</option><option>Videoconferencia</option></select></td>
             <td><input oninput="onChange()" placeholder="Ej: 4 horas"></td>
+            <td><select oninput="onChange()"><option>Sin definir</option><option>S-8</option><option>S-7</option><option>S-6</option><option>S-5</option><option>S-4</option><option>S-3</option><option>S-2</option><option>S-1</option><option>S0</option><option>S+1</option><option>S+2</option><option>S+3</option><option>S+4</option></select></td>
             <td><input oninput="onChange()" placeholder="Ej: % completado en 30 días"></td>
             <td><button class="btn-del-row" onclick="delRow(this)">✕</button></td>
           </tr>
         </tbody>
       </table></div>
-      <button class="btn-add-row" onclick="addRow('s7_ent_body',6)">+ Agregar grupo</button>
+      <button class="btn-add-row" onclick="addRow('s7_ent_body',7)">+ Agregar grupo</button>
+      <div class="gantt-wrap">
+        <div class="gantt-head">📅 Mi entrenamiento en el tiempo
+          <button class="btn-refresh-sug" onclick="dibujarGanttS7()">↻ Actualizar</button>
+        </div>
+        <div class="gantt-scroll"><div class="gantt" id="s7_gantt"></div></div>
+        <div id="s7_gantt_diag"></div>
+      </div>
       <p style="font-size:12px;color:rgba(255,255,255,.45);margin-top:10px;">Prueba de calidad de la columna <strong style="color:rgba(255,255,255,.8)">Rol impactado</strong>: debe ser un puesto concreto que puedas nombrar en un organigrama (“Supervisor de línea”, “Promotor de ruta”), no un área entera. Si no puedes nombrar el rol, todavía no sabes a quién vas a entrenar.</p>
     </div>
+    <div class="section-block">
+      <h3>🔁 Refuerzo posterior al Go-live</h3>
+      <p style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:14px;line-height:1.55;">El entrenamiento previo deja a la gente <strong style="color:rgba(255,255,255,.85)">capaz</strong>; el refuerzo posterior la deja <strong style="color:rgba(255,255,255,.85)">consistente</strong>. Entre la semana 2 y la 6 después del Go-live es cuando reaparece la forma vieja de trabajar: el usuario ya sabe hacerlo, pero bajo presión vuelve a lo conocido. Si tu plan termina en S0, estás midiendo asistencia, no adopción. Usa este espacio solo si lo consideras necesario — y si decides que no lo es, escribe por qué.</p>
+      <div class="dyn-table-wrap"><table class="dyn-table" id="s7_ref_table">
+        <thead><tr><th>Rol impactado</th><th>Refuerzo propuesto</th><th>Semana post Go-live</th><th>KPI de sostenimiento</th><th></th></tr></thead>
+        <tbody id="s7_ref_body">
+          <tr>
+            <td><input list="s7_roles_dl" oninput="onChange()" placeholder="Ej: Supervisor de línea"></td>
+            <td><textarea oninput="onChange()" placeholder="Ej: clínica de 90 min sobre los 3 errores más frecuentes de las primeras 4 semanas"></textarea></td>
+            <td><select oninput="onChange()"><option>S+1</option><option>S+2</option><option>S+3</option><option>S+4</option><option>S+6</option><option>S+8</option><option>S+12</option></select></td>
+            <td><input oninput="onChange()" placeholder="Ej: reincidencia de error < 5% en S+8"></td>
+            <td><button class="btn-del-row" onclick="delRow(this)">✕</button></td>
+          </tr>
+        </tbody>
+      </table></div>
+      <button class="btn-add-row" onclick="addRow('s7_ref_body',4)">+ Agregar refuerzo</button>
+      <div style="margin-top:14px">
+        <label style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--cian);display:block;margin-bottom:6px;">Si decides NO hacer refuerzo, ¿en qué te apoyas?</label>
+        <textarea class="inp" id="s7_ref_justif" oninput="onChange()" placeholder="Ej: el cambio es de baja frecuencia de uso y el sistema bloquea la vía anterior, así que la conducta vieja no está disponible..."></textarea>
+      </div>
+    </div>
+
     <div class="section-block">
       <h3>📈 Mis 3 KPIs principales de adopción</h3>
       <div style="display:grid;gap:10px">
@@ -862,14 +939,20 @@ var G2G_TABLE_TYPES = {
   's4_sh_body': ['input','select','select','select','select','textarea','textarea'],
   's5_mens_body': ['input','textarea','textarea','textarea','select'],
   's6_plan_body': ['textarea','input','select','input','input','select'],
-  's7_ent_body': ['input','input','textarea','select','input','input'],
+  's7_ent_body': ['input','input','textarea','select','input','select','input'],
+  's7_ref_body': ['input','textarea','select','input'],
   's9_plan_body': ['select','input','textarea','textarea']
 };
 // Reubicacion de columnas cuando se agrega un campo en medio de una tabla ya usada.
 // desde = numero de columnas de la version anterior; mapa[i] = indice nuevo de la columna vieja i.
 // s7_ent_body: se inserto "Rol impactado" en la posicion 1 (sep-2026).
+// Cada entrada: {desde: nº de columnas de esa version, mapa[i] = indice nuevo de la columna vieja i}.
+// s7_ent_body: sep-2026 se inserto "Rol impactado" en 1 y luego "Semana vs. Go-live" en 5.
 var G2G_MIGRA_COLS = {
-  's7_ent_body': {desde:5, mapa:[0,2,3,4,5]}
+  's7_ent_body': [
+    {desde:5, mapa:[0,2,3,4,6]},        // version original (sin rol, sin semana)
+    {desde:6, mapa:[0,1,2,3,4,6]}       // version con rol, sin semana
+  ]
 };
 var G2G_SELECT_OPTS = {
   's2_sh_body': {2:['1','2','3','4','5'],3:['1','2','3','4','5']},
@@ -880,7 +963,8 @@ var G2G_SELECT_OPTS = {
   's4_sh_body': {1:['1','2','3','4','5'],2:['1','2','3','4','5'],3:['Gestionar de cerca','Mantener satisfecho','Mantener informado','Monitorear'],4:['Convertir','Neutralizar','Involucrar en el diseño','Comunicación general']},
   's5_mens_body': {4:['Teams/Zoom','Email','Reunión presencial','Póster/Cartelera','Video','Otro']},
   's6_plan_body': {2:['Reunión','Email','Video','Boletín','Cartelera','Otro'],5:['Pendiente','En proceso','Completado']},
-  's7_ent_body': {3:['Taller presencial','E-learning','Coaching 1:1','OJT / En el puesto','Videoconferencia']},
+  's7_ent_body': {3:['Taller presencial','E-learning','Coaching 1:1','OJT / En el puesto','Videoconferencia'],5:['Sin definir','S-8','S-7','S-6','S-5','S-4','S-3','S-2','S-1','S0','S+1','S+2','S+3','S+4']},
+  's7_ref_body': {2:['S+1','S+2','S+3','S+4','S+6','S+8','S+12']},
   's9_plan_body': {0:['Apertura','Concepto','Práctica guiada','Reto / Aplicación','Cierre']}
 };
 
@@ -971,7 +1055,7 @@ function cargarCuaderno(rec) {
   document.getElementById('s-cuaderno').style.display = 'flex';
   if (rec.datos) { capturarAjenas(rec.datos); poblarCampos(rec.datos); }
   actualizarResumen();
-  try { refrescarSugerenciasS7(); } catch(e) { console.warn('[G2G sug]', e); }
+  try { refrescarSugerenciasS7(); dibujarGanttS7(); } catch(e) { console.warn('[G2G sug]', e); }
 }
 
 // Una clave pertenece al cuaderno si tiene un campo con ese id o es una tabla dinamica.
@@ -1018,7 +1102,7 @@ function poblarCampos(datos) {
   });
   // Tables
   var tables = ['s1_inv_body','s2_sh_body','s2_plan_body','s3_matriz_body','s3_mitigacion_body','s4_sh_body','s5_mens_body',
-                 's6_plan_body','s7_ent_body','s9_plan_body'];
+                 's6_plan_body','s7_ent_body','s7_ref_body','s9_plan_body'];
   tables.forEach(function(tbodyId) {
     if (datos[tbodyId]) {
       var tbody = document.getElementById(tbodyId);
@@ -1028,8 +1112,12 @@ function poblarCampos(datos) {
         var cols = Object.keys(rowData).filter(function(k){return k!=='_meta' && k!=='_opts';});
         // Migracion de columnas: reubica los valores ya guardados cuando se inserta
         // una columna nueva en medio de la tabla. Solo actua sobre la forma anterior.
-        var mig = G2G_MIGRA_COLS[tbodyId];
-        if (mig && cols.length === mig.desde) {
+        var migs = G2G_MIGRA_COLS[tbodyId] || [];
+        var mig = null;
+        for (var mi = 0; mi < migs.length; mi++) {
+          if (migs[mi].desde === cols.length) { mig = migs[mi]; break; }
+        }
+        if (mig) {
           var reubicado = {};
           if (rowData['_meta']) reubicado['_meta'] = rowData['_meta'];
           if (rowData['_opts']) reubicado['_opts'] = rowData['_opts'];
@@ -1064,9 +1152,10 @@ function poblarCampos(datos) {
             opts.forEach(function(o){ var op=document.createElement('option');op.value=o;op.textContent=o;el.appendChild(op); });
           }
           conservarOpcion(el, val);
-          el.value = val || '';
+          if (tagMap === 'select' && !val) el.selectedIndex = 0;
+          else el.value = val || '';
           el.setAttribute('oninput','onChange()');
-          if (tbodyId === 's7_ent_body' && ci === 1) el.setAttribute('list','s7_roles_dl');
+          if ((tbodyId === 's7_ent_body' && ci === 1) || (tbodyId === 's7_ref_body' && ci === 0)) el.setAttribute('list','s7_roles_dl');
           td.appendChild(el);
         });
         var tdDel = row.insertCell(); 
@@ -1097,7 +1186,8 @@ function serializarDatos() {
     's4_sh_body': ['input','select','select','select','select','textarea','textarea'],
     's5_mens_body': ['input','textarea','textarea','textarea','select'],
     's6_plan_body': ['textarea','input','select','input','input','select'],
-    's7_ent_body': ['input','input','textarea','select','input','input'],
+    's7_ent_body': ['input','input','textarea','select','input','select','input'],
+    's7_ref_body': ['input','textarea','select','input'],
     's9_plan_body': ['select','input','textarea','textarea']
   };
   Object.keys(tableMap).forEach(function(tbodyId) {
@@ -1119,6 +1209,10 @@ function serializarDatos() {
 // ══ AUTO-SAVE
 function onChange() {
   setSaveInd('saving','Guardando...');
+  var paneS7 = document.getElementById('tab-6');
+  if (paneS7 && paneS7.classList.contains('active')) {
+    try { dibujarGanttS7(); } catch(e) { console.warn('[G2G gantt]', e); }
+  }
   if (SAVE_TIMER) clearTimeout(SAVE_TIMER);
   SAVE_TIMER = setTimeout(guardarDatos, 2500);
   actualizarResumen();
@@ -1170,7 +1264,7 @@ function showTab(n) {
   if (pane) pane.classList.add('active');
   document.querySelectorAll('.tab-btn')[n].classList.add('active');
   if (n === 10) actualizarResumen();
-  if (n === 6) refrescarSugerenciasS7();
+  if (n === 6) { refrescarSugerenciasS7(); dibujarGanttS7(); }
 }
 
 // ══ RESUMEN
@@ -1312,6 +1406,102 @@ function usarSugerenciaS7(i) {
   }
   onChange();
   if (els[2]) { els[2].focus(); }
+  dibujarGanttS7();
+}
+
+// ══ GANTT S7 (entrenamiento contra la fecha de Go-live)
+var SEM_S7 = ['S-8','S-7','S-6','S-5','S-4','S-3','S-2','S-1','S0','S+1','S+2','S+3','S+4'];
+var TIPO_CORTO = {'Taller presencial':'Taller','E-learning':'E-learning','Coaching 1:1':'Coaching',
+                  'OJT / En el puesto':'OJT','Videoconferencia':'Video','Refuerzo':'Refuerzo'};
+function offsetSemana(s) {
+  if (!s || s === 'Sin definir') return null;
+  if (s === 'S0') return 0;
+  var m = /^S([+-])(\d+)$/.exec(s);
+  return m ? (m[1] === '-' ? -parseInt(m[2],10) : parseInt(m[2],10)) : null;
+}
+function fechaDeSemana(off) {
+  var g = document.getElementById('s7_golive');
+  if (!g || !g.value) return '';
+  var d = new Date(g.value + 'T12:00:00');
+  if (isNaN(d.getTime())) return '';
+  d.setDate(d.getDate() + off * 7);
+  return d.toLocaleDateString('es-MX', {day:'2-digit', month:'short'});
+}
+function actividadesS7() {
+  var out = [];
+  filasDe('s7_ent_body').forEach(function(c) {
+    var rol = (c[1] || c[0] || '').trim(), act = (c[2] || '').trim();
+    if (!rol && !act) return;
+    out.push({rol: rol || '(rol por definir)', act: act, tipo: (c[3]||'').trim(),
+              dur: (c[4]||'').trim(), sem: (c[5]||'Sin definir').trim(), kpi: (c[6]||'').trim(), ref: false});
+  });
+  filasDe('s7_ref_body').forEach(function(c) {
+    var rol = (c[0] || '').trim(), act = (c[1] || '').trim();
+    if (!rol && !act) return;
+    out.push({rol: rol || '(rol por definir)', act: act, tipo: 'Refuerzo',
+              dur: '', sem: (c[2]||'S+1').trim(), kpi: (c[3]||'').trim(), ref: true});
+  });
+  return out;
+}
+function dibujarGanttS7() {
+  var g = document.getElementById('s7_gantt');
+  if (!g) return;
+  var acts = actividadesS7();
+  var diag = document.getElementById('s7_gantt_diag');
+  if (!acts.length) {
+    g.innerHTML = '<div class="gantt-vacio">Captura al menos una actividad de entrenamiento y el gantt se dibuja solo. Cada fila se coloca en la semana que le asignes respecto al Go-live.</div>';
+    if (diag) diag.innerHTML = '';
+    return;
+  }
+  var h = '<div class="gantt-row enc"><div class="gantt-lab" style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.5);padding-top:12px">Actividad y KPI</div>';
+  SEM_S7.forEach(function(s) {
+    var off = offsetSemana(s), f = fechaDeSemana(off);
+    var cl = 'gantt-c' + (off === 0 ? ' cero' : (off > 0 ? ' post' : ''));
+    h += '<div class="' + cl + '"><span class="gantt-sem">' + s + '</span>' +
+         (off === 0 ? '<span class="gantt-fec" style="color:var(--rojo-vivo);font-weight:700">GO-LIVE</span>' : '') +
+         (f ? '<span class="gantt-fec">' + f + '</span>' : '') + '</div>';
+  });
+  h += '</div>';
+  var sinSemana = 0, sinKpi = 0, tarde = 0, hayPost = false, masTemprana = null;
+  acts.forEach(function(a) {
+    var off = offsetSemana(a.sem);
+    if (off === null) sinSemana++;
+    if (!a.kpi) sinKpi++;
+    if (off === 0 && !a.ref) tarde++;
+    if (off !== null && off > 0) hayPost = true;
+    if (off !== null && (masTemprana === null || off < masTemprana)) masTemprana = off;
+    h += '<div class="gantt-row"><div class="gantt-lab">' +
+         '<div class="gl-rol">' + escHtml(a.rol) + (a.ref ? ' <span style="color:var(--verde);font-size:9px;font-weight:700">· REFUERZO</span>' : '') + '</div>' +
+         (a.act ? '<div class="gl-act">' + escHtml(a.act.length > 74 ? a.act.slice(0,74) + '…' : a.act) + '</div>' : '') +
+         '<span class="gl-kpi' + (a.kpi ? '' : ' falta') + '">' + escHtml(a.kpi || 'sin KPI definido') + '</span>' +
+         '</div>';
+    SEM_S7.forEach(function(s) {
+      var o = offsetSemana(s);
+      var cl = 'gantt-c' + (o === 0 ? ' cero' : (o > 0 ? ' post' : ''));
+      if (s === a.sem) {
+        var tipo = a.ref ? 'post' : (o === 0 ? 'cero' : 'pre');
+        var txt = TIPO_CORTO[a.tipo] || a.tipo || 'Entrenamiento';
+        h += '<div class="' + cl + '"><div class="gantt-barra ' + tipo + '" title="' + escHtml(a.tipo + (a.dur ? ' · ' + a.dur : '')) + '">' +
+             escHtml(txt.length > 11 ? txt.slice(0,10) + '…' : txt) +
+             (a.dur ? '<br><span style="font-weight:600;opacity:.75;font-size:8.5px">' + escHtml(a.dur) + '</span>' : '') +
+             '</div></div>';
+      } else {
+        h += '<div class="' + cl + '"></div>';
+      }
+    });
+    h += '</div>';
+  });
+  g.innerHTML = h;
+  if (!diag) return;
+  var avisos = [];
+  if (sinSemana) avisos.push('<strong>' + sinSemana + ' actividad(es) sin semana asignada.</strong> Mientras no las coloques en el tiempo, no son un plan: son una lista de buenas intenciones.');
+  if (sinKpi) avisos.push('<strong>' + sinKpi + ' actividad(es) sin KPI.</strong> Sin métrica no sabrás si el entrenamiento sirvió o solo se impartió.');
+  if (tarde) avisos.push('<strong>' + tarde + ' actividad(es) caen en S0.</strong> Entrenar la misma semana del Go-live deja a la gente aprendiendo mientras el cambio ya es real: adelántalas a S-3 o S-2.');
+  if (!hayPost) avisos.push('<strong>No hay nada después del Go-live.</strong> Entre S+2 y S+6 es cuando reaparece la forma vieja de trabajar. Decide si necesitas refuerzo, o justifica por qué no.');
+  if (masTemprana !== null && masTemprana > -2 && !sinSemana) avisos.push('<strong>Todo tu entrenamiento arranca en ' + (masTemprana === 0 ? 'S0' : 'S' + masTemprana) + '.</strong> Las competencias complejas necesitan práctica y una segunda pasada: considera abrir desde S-4.');
+  diag.innerHTML = avisos.length
+    ? '<div class="gantt-alerta">' + avisos.join('<br><br>') + '</div>'
+    : '<div class="gantt-ok"><strong>Plan bien dimensionado:</strong> cada actividad tiene semana y KPI, el entrenamiento cierra antes del Go-live y existe refuerzo posterior. Esto ya se puede defender frente a un sponsor.</div>';
 }
 
 // ══ ADD / DEL TABLE ROWS
@@ -1326,7 +1516,8 @@ function addRow(tbodyId, numCols) {
     's4_sh_body': [['input','select','select','select','select','textarea','textarea']],
     's5_mens_body': [['input','textarea','textarea','textarea','select']],
     's6_plan_body': [['textarea','input','select','input','input','select']],
-    's7_ent_body': [['input','input','textarea','select','input','input']],
+    's7_ent_body': [['input','input','textarea','select','input','select','input']],
+    's7_ref_body': [['input','textarea','select','input']],
     's9_plan_body': [['select','input','textarea','textarea']]
   };
   var selectOpts = {
@@ -1337,7 +1528,8 @@ function addRow(tbodyId, numCols) {
     's4_sh_body': {1:['1','2','3','4','5'],2:['1','2','3','4','5'],3:['Gestionar de cerca','Mantener satisfecho','Mantener informado','Monitorear'],4:['Convertir','Neutralizar','Involucrar en el diseño','Comunicación general']},
     's5_mens_body': {4:['Teams/Zoom','Email','Reunión presencial','Póster/Cartelera','Video','Otro']},
     's6_plan_body': {2:['Reunión','Email','Video','Boletín','Cartelera','Otro'],5:['Pendiente','En proceso','Completado']},
-    's7_ent_body': {3:['Taller presencial','E-learning','Coaching 1:1','OJT / En el puesto','Videoconferencia']},
+    's7_ent_body': {3:['Taller presencial','E-learning','Coaching 1:1','OJT / En el puesto','Videoconferencia'],5:['Sin definir','S-8','S-7','S-6','S-5','S-4','S-3','S-2','S-1','S0','S+1','S+2','S+3','S+4']},
+    's7_ref_body': {2:['S+1','S+2','S+3','S+4','S+6','S+8','S+12']},
     's9_plan_body': {0:['Apertura','Concepto','Práctica guiada','Reto / Aplicación','Cierre']}
   };
   var row = tbody.insertRow();
@@ -1358,7 +1550,7 @@ function addRow(tbodyId, numCols) {
       opts.forEach(function(o){ var op=document.createElement('option');op.value=o;op.textContent=o;el.appendChild(op); });
     } else { el = document.createElement('input'); }
     el.setAttribute('oninput','onChange()');
-    if (tbodyId === 's7_ent_body' && i === 1) el.setAttribute('list','s7_roles_dl');
+    if ((tbodyId === 's7_ent_body' && i === 1) || (tbodyId === 's7_ref_body' && i === 0)) el.setAttribute('list','s7_roles_dl');
     td.appendChild(el);
   });
   var tdDel = row.insertCell();
@@ -1656,7 +1848,10 @@ function exportarExcel() {
 
   addSessionSheet('S7 · Plan de Entrenamiento', [
     {title:'Aprendizaje clave', fields:[{label:'Mi aprendizaje',value:val('s7_aprendizaje')}]},
-    {title:'Plan de entrenamiento', table:{headers:['Grupo','Rol impactado','Competencia','Tipo','Duración','KPI de adopción'],rows:readTable('s7_ent_body',6)}},
+    {title:'Go-live', fields:[{label:'Fecha propuesta de Go-live',value:val('s7_golive')},{label:'Qué ancla la fecha',value:val('s7_golive_ancla')}]},
+    {title:'Plan de entrenamiento', table:{headers:['Grupo','Rol impactado','Competencia','Tipo','Duración','Semana vs. Go-live','KPI de adopción'],rows:readTable('s7_ent_body',7)}},
+    {title:'Refuerzo post Go-live', table:{headers:['Rol impactado','Refuerzo propuesto','Semana post Go-live','KPI de sostenimiento'],rows:readTable('s7_ref_body',4)}},
+    {title:'Si no hay refuerzo', fields:[{label:'Justificación',value:val('s7_ref_justif')}]},
     {title:'KPIs principales', fields:[{label:'KPI #1',value:val('s7_kpi1')},{label:'KPI #2',value:val('s7_kpi2')},{label:'KPI #3',value:val('s7_kpi3')}]},
     {title:'Compromiso', fields:[{label:'Mi compromiso',value:val('s7_compromiso')}]}
   ], V);
