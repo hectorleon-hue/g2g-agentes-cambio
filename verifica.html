@@ -889,6 +889,7 @@ var DB = null;
 var REC_ID = null;
 var SAVE_TIMER = null;
 var IS_OFFLINE = false;
+var DATOS_AJENOS = {};   // claves del JSONB que el cuaderno NO administra (p. ej. examen_t1)
 var LOCAL_KEY_PREFIX = 'g2g_ac_';
 
 // ══ INIT
@@ -968,9 +969,35 @@ function cargarCuaderno(rec) {
   document.getElementById('s-login').style.display = 'none';
   document.getElementById('s-registro').style.display = 'none';
   document.getElementById('s-cuaderno').style.display = 'flex';
-  if (rec.datos) poblarCampos(rec.datos);
+  if (rec.datos) { capturarAjenas(rec.datos); poblarCampos(rec.datos); }
   actualizarResumen();
   try { refrescarSugerenciasS7(); } catch(e) { console.warn('[G2G sug]', e); }
+}
+
+// Una clave pertenece al cuaderno si tiene un campo con ese id o es una tabla dinamica.
+// Si un select trae guardado un valor que ya no esta en su catalogo, se agrega como
+// opcion en vez de perderlo (opciones renombradas o columnas de versiones anteriores).
+function conservarOpcion(el, val) {
+  if (!el || el.tagName !== 'SELECT') return;
+  if (val === null || val === undefined || val === '') return;
+  for (var i = 0; i < el.options.length; i++) {
+    if (el.options[i].value === val || el.options[i].textContent === val) return;
+  }
+  var o = document.createElement('option');
+  o.value = val; o.textContent = val;
+  el.appendChild(o);
+}
+function esClaveDelCuaderno(k) {
+  if (G2G_TABLE_TYPES[k]) return true;
+  var el = document.getElementById(k);
+  return !!(el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT'));
+}
+function capturarAjenas(datos) {
+  DATOS_AJENOS = {};
+  if (!datos) return;
+  Object.keys(datos).forEach(function(k) {
+    if (!esClaveDelCuaderno(k)) DATOS_AJENOS[k] = datos[k];
+  });
 }
 
 // ══ POBLAR / SERIALIZAR
@@ -985,6 +1012,7 @@ function poblarCampos(datos) {
       var vEl = document.getElementById(vid);
       if (vEl) vEl.textContent = datos[id];
     } else {
+      conservarOpcion(el, datos[id]);
       el.value = datos[id];
     }
   });
@@ -1035,6 +1063,7 @@ function poblarCampos(datos) {
             var opts = rowData['_opts'] && rowData['_opts'][ci] ? rowData['_opts'][ci] : [];
             opts.forEach(function(o){ var op=document.createElement('option');op.value=o;op.textContent=o;el.appendChild(op); });
           }
+          conservarOpcion(el, val);
           el.value = val || '';
           el.setAttribute('oninput','onChange()');
           if (tbodyId === 's7_ent_body' && ci === 1) el.setAttribute('list','s7_roles_dl');
@@ -1049,6 +1078,8 @@ function poblarCampos(datos) {
 
 function serializarDatos() {
   var datos = {};
+  // Nunca pisar lo que escribio otra herramienta sobre el mismo JSONB (examen_t1, etc.)
+  Object.keys(DATOS_AJENOS).forEach(function(k) { datos[k] = DATOS_AJENOS[k]; });
   // All inputs/textareas/selects with an id
   document.querySelectorAll('[id^="s"],[id^="cierre_"]').forEach(function(el) {
     if (!el.id || el.tagName === 'DIV' || el.tagName === 'BUTTON') return;
@@ -1111,6 +1142,17 @@ async function guardarDatos() {
     return;
   }
   try {
+    // Relee el registro para no pisar claves que otra herramienta haya escrito
+    // desde que se cargo el cuaderno (p. ej. el resultado del examen en otra pestana).
+    try {
+      var prev = await DB.from(TABLE_NAME).select('datos').eq('id', REC_ID).limit(1);
+      if (prev && !prev.error && prev.data && prev.data[0] && prev.data[0].datos) {
+        var pd = prev.data[0].datos;
+        Object.keys(pd).forEach(function(k) {
+          if (!esClaveDelCuaderno(k)) { datos[k] = pd[k]; DATOS_AJENOS[k] = pd[k]; }
+        });
+      }
+    } catch(e) { console.warn('[G2G merge]', e); }
     var res = await DB.from(TABLE_NAME)
       .update({datos: datos, updated_at: new Date().toISOString()})
       .eq('id', REC_ID);
