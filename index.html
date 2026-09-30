@@ -157,6 +157,23 @@ textarea.inp::placeholder,input.inp::placeholder{color:rgba(255,255,255,.3);}
   transition:.2s;
 }
 .btn-add-row:hover{background:rgba(51,180,210,.25);}
+/* ── S7 · sugerencias desde S3 ── */
+.sug-box{background:rgba(244,162,97,.07);border:1px dashed rgba(244,162,97,.45);border-radius:10px;padding:14px 16px;margin-bottom:16px;}
+.sug-box h4{font-family:var(--font-t);font-size:11.5px;font-weight:800;color:var(--naranja);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.sug-tag{background:rgba(244,162,97,.2);color:var(--naranja);border:1px solid rgba(244,162,97,.55);border-radius:50px;padding:2px 9px;font-size:9px;font-weight:700;letter-spacing:.09em;}
+.sug-note{font-size:12px;color:rgba(255,255,255,.55);line-height:1.55;margin-bottom:12px;}
+.sug-list{display:grid;gap:8px;}
+.sug-card{background:rgba(10,30,54,.55);border:1px solid rgba(255,255,255,.09);border-left:3px solid var(--naranja);border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+.sug-card .sc-t{font-size:12.5px;color:rgba(255,255,255,.92);font-weight:600;}
+.sug-card .sc-d{font-size:11.5px;color:rgba(255,255,255,.58);margin-top:3px;line-height:1.45;}
+.sug-card .sc-m{font-size:10px;color:var(--naranja);margin-top:5px;letter-spacing:.03em;opacity:.9;}
+.btn-usar{flex-shrink:0;background:rgba(244,162,97,.15);border:1px solid rgba(244,162,97,.55);color:var(--naranja);border-radius:50px;padding:5px 13px;font-size:11px;font-weight:700;cursor:pointer;transition:.2s;white-space:nowrap;}
+.btn-usar:hover{background:rgba(244,162,97,.3);}
+.btn-refresh-sug{margin-left:auto;background:none;border:1px solid rgba(244,162,97,.4);color:var(--naranja);border-radius:50px;padding:3px 11px;font-size:10px;font-weight:700;cursor:pointer;letter-spacing:.04em;}
+.btn-refresh-sug:hover{background:rgba(244,162,97,.18);}
+.sug-vacio{font-size:12px;color:rgba(255,255,255,.45);font-style:italic;line-height:1.55;}
+tr.fila-sugerida td{background:rgba(244,162,97,.06);vertical-align:bottom;}
+.sug-pill{display:block;background:rgba(244,162,97,.2);color:var(--naranja);border:1px solid rgba(244,162,97,.55);border-radius:50px;padding:1px 8px;font-size:8.5px;font-weight:700;letter-spacing:.07em;margin-bottom:5px;width:max-content;}
 .btn-del-row{
   background:rgba(165,32,42,.15);border:none;color:rgba(165,32,42,.8);
   border-radius:6px;padding:5px 8px;font-size:12px;cursor:pointer;
@@ -609,11 +626,23 @@ input[type=range]::-webkit-slider-thumb{
     </div>
     <div class="section-block">
       <h3>🎓 Mi Plan de Entrenamiento</h3>
+      <p style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:14px;line-height:1.55;">Tu plan de entrenamiento <strong style="color:rgba(255,255,255,.85)">es un plan de mitigación</strong>. Cada fila debería responder a un impacto que detectaste en la Sesión 3: si una competencia de esta tabla no mitiga ningún impacto, estás entrenando por costumbre y no por necesidad; y si un impacto de nivel 4 o 5 no aparece aquí ni en otra palanca, quedó sin mitigar. Recuerda que el entrenamiento mitiga bien las categorías <strong style="color:rgba(255,255,255,.85)">Proceso, Herramienta, Tecnología y Conducta</strong>; <strong style="color:rgba(255,255,255,.85)">Estructura y Cultura</strong> exigen otras palancas (decisiones, sponsor, incentivos).</p>
+
+      <div class="sug-box">
+        <h4>💡 Sugerencias desde tu análisis de impacto <span class="sug-tag">SUGERENCIA · NO ES TU RESPUESTA</span>
+          <button class="btn-refresh-sug" onclick="refrescarSugerenciasS7()">↻ Actualizar</button>
+        </h4>
+        <p class="sug-note">Esto es lo que <strong style="color:rgba(255,255,255,.75)">tú mismo capturaste</strong> en la matriz de impacto y en el plan de mitigación de la Sesión 3, ordenado por severidad. No son filas de tu plan: son candidatos. Presiona <strong style="color:var(--naranja)">+ Usar</strong> para bajar uno a la tabla y <strong style="color:rgba(255,255,255,.75)">edítalo</strong> — sobre todo la competencia, que debe quedar redactada como una conducta observable ("poder hacer X"), no como la descripción del impacto.</p>
+        <div class="sug-list" id="s7_sug_list"><p class="sug-vacio">Abre esta sesión con tu cuaderno cargado para ver tus impactos de la Sesión 3.</p></div>
+      </div>
+
+      <datalist id="s7_roles_dl"></datalist>
       <div class="dyn-table-wrap"><table class="dyn-table" id="s7_ent_table">
-        <thead><tr><th>Grupo objetivo</th><th>Competencia a desarrollar</th><th>Tipo de entrenamiento</th><th>Duración</th><th>KPI de adopción</th><th></th></tr></thead>
+        <thead><tr><th>Grupo objetivo</th><th>Rol impactado <span style="font-weight:400;text-transform:none;opacity:.7">(S3)</span></th><th>Competencia a desarrollar</th><th>Tipo de entrenamiento</th><th>Duración</th><th>KPI de adopción</th><th></th></tr></thead>
         <tbody id="s7_ent_body">
           <tr>
-            <td><input oninput="onChange()" placeholder="Ej: Supervisores"></td>
+            <td><input oninput="onChange()" placeholder="Ej: Operaciones"></td>
+            <td><input list="s7_roles_dl" oninput="onChange()" placeholder="Ej: Supervisor de línea"></td>
             <td><textarea oninput="onChange()" placeholder="¿Qué debe saber/poder hacer?"></textarea></td>
             <td><select oninput="onChange()"><option>Taller presencial</option><option>E-learning</option><option>Coaching 1:1</option><option>OJT / En el puesto</option><option>Videoconferencia</option></select></td>
             <td><input oninput="onChange()" placeholder="Ej: 4 horas"></td>
@@ -622,7 +651,8 @@ input[type=range]::-webkit-slider-thumb{
           </tr>
         </tbody>
       </table></div>
-      <button class="btn-add-row" onclick="addRow('s7_ent_body',5)">+ Agregar grupo</button>
+      <button class="btn-add-row" onclick="addRow('s7_ent_body',6)">+ Agregar grupo</button>
+      <p style="font-size:12px;color:rgba(255,255,255,.45);margin-top:10px;">Prueba de calidad de la columna <strong style="color:rgba(255,255,255,.8)">Rol impactado</strong>: debe ser un puesto concreto que puedas nombrar en un organigrama (“Supervisor de línea”, “Promotor de ruta”), no un área entera. Si no puedes nombrar el rol, todavía no sabes a quién vas a entrenar.</p>
     </div>
     <div class="section-block">
       <h3>📈 Mis 3 KPIs principales de adopción</h3>
@@ -832,8 +862,14 @@ var G2G_TABLE_TYPES = {
   's4_sh_body': ['input','select','select','select','select','textarea','textarea'],
   's5_mens_body': ['input','textarea','textarea','textarea','select'],
   's6_plan_body': ['textarea','input','select','input','input','select'],
-  's7_ent_body': ['input','textarea','select','input','input'],
+  's7_ent_body': ['input','input','textarea','select','input','input'],
   's9_plan_body': ['select','input','textarea','textarea']
+};
+// Reubicacion de columnas cuando se agrega un campo en medio de una tabla ya usada.
+// desde = numero de columnas de la version anterior; mapa[i] = indice nuevo de la columna vieja i.
+// s7_ent_body: se inserto "Rol impactado" en la posicion 1 (sep-2026).
+var G2G_MIGRA_COLS = {
+  's7_ent_body': {desde:5, mapa:[0,2,3,4,5]}
 };
 var G2G_SELECT_OPTS = {
   's2_sh_body': {2:['1','2','3','4','5'],3:['1','2','3','4','5']},
@@ -844,7 +880,7 @@ var G2G_SELECT_OPTS = {
   's4_sh_body': {1:['1','2','3','4','5'],2:['1','2','3','4','5'],3:['Gestionar de cerca','Mantener satisfecho','Mantener informado','Monitorear'],4:['Convertir','Neutralizar','Involucrar en el diseño','Comunicación general']},
   's5_mens_body': {4:['Teams/Zoom','Email','Reunión presencial','Póster/Cartelera','Video','Otro']},
   's6_plan_body': {2:['Reunión','Email','Video','Boletín','Cartelera','Otro'],5:['Pendiente','En proceso','Completado']},
-  's7_ent_body': {2:['Taller presencial','E-learning','Coaching 1:1','OJT / En el puesto','Videoconferencia']},
+  's7_ent_body': {3:['Taller presencial','E-learning','Coaching 1:1','OJT / En el puesto','Videoconferencia']},
   's9_plan_body': {0:['Apertura','Concepto','Práctica guiada','Reto / Aplicación','Cierre']}
 };
 
@@ -853,6 +889,7 @@ var DB = null;
 var REC_ID = null;
 var SAVE_TIMER = null;
 var IS_OFFLINE = false;
+var DATOS_AJENOS = {};   // claves del JSONB que el cuaderno NO administra (p. ej. examen_t1)
 var LOCAL_KEY_PREFIX = 'g2g_ac_';
 
 // ══ INIT
@@ -932,8 +969,35 @@ function cargarCuaderno(rec) {
   document.getElementById('s-login').style.display = 'none';
   document.getElementById('s-registro').style.display = 'none';
   document.getElementById('s-cuaderno').style.display = 'flex';
-  if (rec.datos) poblarCampos(rec.datos);
+  if (rec.datos) { capturarAjenas(rec.datos); poblarCampos(rec.datos); }
   actualizarResumen();
+  try { refrescarSugerenciasS7(); } catch(e) { console.warn('[G2G sug]', e); }
+}
+
+// Una clave pertenece al cuaderno si tiene un campo con ese id o es una tabla dinamica.
+// Si un select trae guardado un valor que ya no esta en su catalogo, se agrega como
+// opcion en vez de perderlo (opciones renombradas o columnas de versiones anteriores).
+function conservarOpcion(el, val) {
+  if (!el || el.tagName !== 'SELECT') return;
+  if (val === null || val === undefined || val === '') return;
+  for (var i = 0; i < el.options.length; i++) {
+    if (el.options[i].value === val || el.options[i].textContent === val) return;
+  }
+  var o = document.createElement('option');
+  o.value = val; o.textContent = val;
+  el.appendChild(o);
+}
+function esClaveDelCuaderno(k) {
+  if (G2G_TABLE_TYPES[k]) return true;
+  var el = document.getElementById(k);
+  return !!(el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT'));
+}
+function capturarAjenas(datos) {
+  DATOS_AJENOS = {};
+  if (!datos) return;
+  Object.keys(datos).forEach(function(k) {
+    if (!esClaveDelCuaderno(k)) DATOS_AJENOS[k] = datos[k];
+  });
 }
 
 // ══ POBLAR / SERIALIZAR
@@ -948,6 +1012,7 @@ function poblarCampos(datos) {
       var vEl = document.getElementById(vid);
       if (vEl) vEl.textContent = datos[id];
     } else {
+      conservarOpcion(el, datos[id]);
       el.value = datos[id];
     }
   });
@@ -961,6 +1026,17 @@ function poblarCampos(datos) {
       tbody.innerHTML = '';
       datos[tbodyId].forEach(function(rowData) {
         var cols = Object.keys(rowData).filter(function(k){return k!=='_meta' && k!=='_opts';});
+        // Migracion de columnas: reubica los valores ya guardados cuando se inserta
+        // una columna nueva en medio de la tabla. Solo actua sobre la forma anterior.
+        var mig = G2G_MIGRA_COLS[tbodyId];
+        if (mig && cols.length === mig.desde) {
+          var reubicado = {};
+          if (rowData['_meta']) reubicado['_meta'] = rowData['_meta'];
+          if (rowData['_opts']) reubicado['_opts'] = rowData['_opts'];
+          mig.mapa.forEach(function(destino, origen) { reubicado['c'+destino] = rowData['c'+origen]; });
+          rowData = reubicado;
+          cols = mig.mapa.map(function(d){ return 'c'+d; });
+        }
         var esquema = G2G_TABLE_TYPES[tbodyId];
         if (esquema && esquema.length > cols.length) {
           cols = esquema.map(function(_, i){ return 'c' + i; });
@@ -987,8 +1063,10 @@ function poblarCampos(datos) {
             var opts = rowData['_opts'] && rowData['_opts'][ci] ? rowData['_opts'][ci] : [];
             opts.forEach(function(o){ var op=document.createElement('option');op.value=o;op.textContent=o;el.appendChild(op); });
           }
+          conservarOpcion(el, val);
           el.value = val || '';
           el.setAttribute('oninput','onChange()');
+          if (tbodyId === 's7_ent_body' && ci === 1) el.setAttribute('list','s7_roles_dl');
           td.appendChild(el);
         });
         var tdDel = row.insertCell(); 
@@ -1000,6 +1078,8 @@ function poblarCampos(datos) {
 
 function serializarDatos() {
   var datos = {};
+  // Nunca pisar lo que escribio otra herramienta sobre el mismo JSONB (examen_t1, etc.)
+  Object.keys(DATOS_AJENOS).forEach(function(k) { datos[k] = DATOS_AJENOS[k]; });
   // All inputs/textareas/selects with an id
   document.querySelectorAll('[id^="s"],[id^="cierre_"]').forEach(function(el) {
     if (!el.id || el.tagName === 'DIV' || el.tagName === 'BUTTON') return;
@@ -1017,7 +1097,7 @@ function serializarDatos() {
     's4_sh_body': ['input','select','select','select','select','textarea','textarea'],
     's5_mens_body': ['input','textarea','textarea','textarea','select'],
     's6_plan_body': ['textarea','input','select','input','input','select'],
-    's7_ent_body': ['input','textarea','select','input','input'],
+    's7_ent_body': ['input','input','textarea','select','input','input'],
     's9_plan_body': ['select','input','textarea','textarea']
   };
   Object.keys(tableMap).forEach(function(tbodyId) {
@@ -1060,6 +1140,17 @@ async function guardarDatos() {
     return;
   }
   try {
+    // Relee el registro para no pisar claves que otra herramienta haya escrito
+    // desde que se cargo el cuaderno (p. ej. el resultado del examen en otra pestana).
+    try {
+      var prev = await DB.from(TABLE_NAME).select('datos').eq('id', REC_ID).limit(1);
+      if (prev && !prev.error && prev.data && prev.data[0] && prev.data[0].datos) {
+        var pd = prev.data[0].datos;
+        Object.keys(pd).forEach(function(k) {
+          if (!esClaveDelCuaderno(k)) { datos[k] = pd[k]; DATOS_AJENOS[k] = pd[k]; }
+        });
+      }
+    } catch(e) { console.warn('[G2G merge]', e); }
     var res = await DB.from(TABLE_NAME)
       .update({datos: datos, updated_at: new Date().toISOString()})
       .eq('id', REC_ID);
@@ -1079,6 +1170,7 @@ function showTab(n) {
   if (pane) pane.classList.add('active');
   document.querySelectorAll('.tab-btn')[n].classList.add('active');
   if (n === 10) actualizarResumen();
+  if (n === 6) refrescarSugerenciasS7();
 }
 
 // ══ RESUMEN
@@ -1110,6 +1202,118 @@ function actualizarResumen() {
 }
 function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
+// ══ SUGERENCIAS S7 (desde el analisis de impacto de S3)
+var SUG_S7 = [];
+var SUG_TOPE = 6;
+var SUG_VER_TODAS = false;
+function alternarSugerenciasS7() { SUG_VER_TODAS = !SUG_VER_TODAS; refrescarSugerenciasS7(); }
+var PALANCA_CAT = {
+  'Proceso':'rediseño de proceso + job aids',
+  'Herramienta':'práctica con la herramienta real',
+  'Tecnología':'soporte en vivo + datos limpios',
+  'Conducta':'modelaje del jefe + retroalimentación',
+  'Estructura':'claridad de decisiones y sponsor — el entrenamiento no basta',
+  'Cultura':'rediseño de incentivos — el entrenamiento no basta'
+};
+function filasDe(tbodyId) {
+  var tb = document.getElementById(tbodyId);
+  if (!tb) return [];
+  return Array.from(tb.rows).map(function(r) {
+    return Array.from(r.querySelectorAll('input,textarea,select')).map(function(e){ return (e.value || '').trim(); });
+  });
+}
+function normTxt(s) { return (s || '').trim().toLowerCase().replace(/\s+/g,' '); }
+function construirSugerenciasS7() {
+  var mat = filasDe('s3_matriz_body');
+  var mit = filasDe('s3_mitigacion_body');
+  var vistos = {}, out = [];
+  // Plan de mitigacion primero: es el dato mas trabajado
+  mit.forEach(function(c) {
+    var imp = c[0] || '', cat = c[1] || '', riesgo = c[2] || '', acc = c[3] || '';
+    var texto = imp || acc;
+    if (!texto) return;
+    if (vistos[normTxt(texto)]) return;
+    vistos[normTxt(texto)] = 1;
+    var area = '';
+    for (var i = 0; i < mat.length; i++) {
+      if (cat && normTxt(mat[i][3]) === normTxt(cat) && (mat[i][0] || '')) { area = mat[i][0]; break; }
+    }
+    out.push({origen:'Plan de mitigación (S3)', grupo:area, rol:area, cat:cat,
+              marca:(riesgo ? 'Riesgo ' + riesgo : ''), comp:texto,
+              prio:(riesgo === 'Alto' ? 0 : riesgo === 'Medio' ? 1 : 2)});
+  });
+  mat.forEach(function(c) {
+    var area = c[0] || '', nivel = parseInt(c[2], 10) || 0, cat = c[3] || '', cambia = c[4] || '';
+    var texto = cambia || area;
+    if (!texto) return;
+    if (vistos[normTxt(texto)]) return;
+    vistos[normTxt(texto)] = 1;
+    out.push({origen:'Matriz de impacto (S3)', grupo:area, rol:area, cat:cat,
+              marca:(nivel ? 'Nivel ' + nivel + '/5' : ''), comp:cambia,
+              prio:(nivel >= 4 ? 0 : nivel === 3 ? 1 : 2)});
+  });
+  out.sort(function(a,b){ return a.prio - b.prio; });
+  return out;
+}
+function refrescarSugerenciasS7() {
+  var cont = document.getElementById('s7_sug_list');
+  if (!cont) return;
+  SUG_S7 = construirSugerenciasS7();
+  var dl = document.getElementById('s7_roles_dl');
+  if (dl) {
+    var roles = {}, opts = '';
+    filasDe('s3_matriz_body').forEach(function(c){ if (c[0]) roles[c[0]] = 1; });
+    filasDe('s4_sh_body').forEach(function(c){ if (c[0]) roles[c[0]] = 1; });
+    Object.keys(roles).forEach(function(r){ opts += '<option value="' + escHtml(r) + '"></option>'; });
+    dl.innerHTML = opts;
+  }
+  if (!SUG_S7.length) {
+    cont.innerHTML = '<p class="sug-vacio">Todavía no hay impactos capturados en la Sesión 3. Llena tu matriz de impacto y tu plan de mitigación y vuelve aquí: las sugerencias aparecen solas. Mientras tanto, recuerda el principio: <strong style="color:rgba(255,255,255,.7)">no se entrena lo que suena bien, se entrena lo que mitiga un impacto detectado</strong>.</p>';
+    return;
+  }
+  var h = '';
+  var lista = SUG_VER_TODAS ? SUG_S7 : SUG_S7.slice(0, SUG_TOPE);
+  lista.forEach(function(s, i) {
+    var meta = s.origen;
+    if (s.cat) meta += ' · ' + s.cat;
+    if (s.marca) meta += ' · ' + s.marca;
+    if (s.cat && PALANCA_CAT[s.cat]) meta += ' · palanca: ' + PALANCA_CAT[s.cat];
+    h += '<div class="sug-card"><div>' +
+         '<div class="sc-t">' + escHtml(s.grupo || '(grupo por definir)') + '</div>' +
+         '<div class="sc-d">' + escHtml(s.comp) + '</div>' +
+         '<div class="sc-m">' + escHtml(meta) + '</div></div>' +
+         '<button class="btn-usar" onclick="usarSugerenciaS7(' + i + ')">+ Usar</button></div>';
+  });
+  if (SUG_S7.length > SUG_TOPE) {
+    h += '<button class="btn-refresh-sug" style="margin:2px 0 0;align-self:start" onclick="alternarSugerenciasS7()">' +
+         (SUG_VER_TODAS ? '\u2191 Ver solo los ' + SUG_TOPE + ' más severos'
+                        : '\u2193 Ver los ' + (SUG_S7.length - SUG_TOPE) + ' restantes (' + SUG_S7.length + ' en total)') +
+         '</button>';
+  }
+  cont.innerHTML = h;
+}
+function usarSugerenciaS7(i) {
+  var s = SUG_S7[i];
+  if (!s) return;
+  addRow('s7_ent_body', 6);
+  var tb = document.getElementById('s7_ent_body');
+  var row = tb.rows[tb.rows.length - 1];
+  var els = row.querySelectorAll('input,textarea,select');
+  if (els[0]) els[0].value = s.grupo || '';
+  if (els[1]) els[1].value = s.rol || '';
+  if (els[2]) els[2].value = s.comp || '';
+  row.classList.add('fila-sugerida');
+  var c0 = row.cells[0];
+  if (c0 && !c0.querySelector('.sug-pill')) {
+    var p = document.createElement('span');
+    p.className = 'sug-pill';
+    p.textContent = 'SUGERIDO · S3';
+    c0.insertBefore(p, c0.firstChild);
+  }
+  onChange();
+  if (els[2]) { els[2].focus(); }
+}
+
 // ══ ADD / DEL TABLE ROWS
 function addRow(tbodyId, numCols) {
   var tbody = document.getElementById(tbodyId);
@@ -1122,7 +1326,7 @@ function addRow(tbodyId, numCols) {
     's4_sh_body': [['input','select','select','select','select','textarea','textarea']],
     's5_mens_body': [['input','textarea','textarea','textarea','select']],
     's6_plan_body': [['textarea','input','select','input','input','select']],
-    's7_ent_body': [['input','textarea','select','input','input']],
+    's7_ent_body': [['input','input','textarea','select','input','input']],
     's9_plan_body': [['select','input','textarea','textarea']]
   };
   var selectOpts = {
@@ -1133,7 +1337,7 @@ function addRow(tbodyId, numCols) {
     's4_sh_body': {1:['1','2','3','4','5'],2:['1','2','3','4','5'],3:['Gestionar de cerca','Mantener satisfecho','Mantener informado','Monitorear'],4:['Convertir','Neutralizar','Involucrar en el diseño','Comunicación general']},
     's5_mens_body': {4:['Teams/Zoom','Email','Reunión presencial','Póster/Cartelera','Video','Otro']},
     's6_plan_body': {2:['Reunión','Email','Video','Boletín','Cartelera','Otro'],5:['Pendiente','En proceso','Completado']},
-    's7_ent_body': {2:['Taller presencial','E-learning','Coaching 1:1','OJT / En el puesto','Videoconferencia']},
+    's7_ent_body': {3:['Taller presencial','E-learning','Coaching 1:1','OJT / En el puesto','Videoconferencia']},
     's9_plan_body': {0:['Apertura','Concepto','Práctica guiada','Reto / Aplicación','Cierre']}
   };
   var row = tbody.insertRow();
@@ -1154,6 +1358,7 @@ function addRow(tbodyId, numCols) {
       opts.forEach(function(o){ var op=document.createElement('option');op.value=o;op.textContent=o;el.appendChild(op); });
     } else { el = document.createElement('input'); }
     el.setAttribute('oninput','onChange()');
+    if (tbodyId === 's7_ent_body' && i === 1) el.setAttribute('list','s7_roles_dl');
     td.appendChild(el);
   });
   var tdDel = row.insertCell();
@@ -1451,7 +1656,7 @@ function exportarExcel() {
 
   addSessionSheet('S7 · Plan de Entrenamiento', [
     {title:'Aprendizaje clave', fields:[{label:'Mi aprendizaje',value:val('s7_aprendizaje')}]},
-    {title:'Plan de entrenamiento', table:{headers:['Grupo','Competencia','Tipo','Duración','KPI de adopción'],rows:readTable('s7_ent_body',5)}},
+    {title:'Plan de entrenamiento', table:{headers:['Grupo','Rol impactado','Competencia','Tipo','Duración','KPI de adopción'],rows:readTable('s7_ent_body',6)}},
     {title:'KPIs principales', fields:[{label:'KPI #1',value:val('s7_kpi1')},{label:'KPI #2',value:val('s7_kpi2')},{label:'KPI #3',value:val('s7_kpi3')}]},
     {title:'Compromiso', fields:[{label:'Mi compromiso',value:val('s7_compromiso')}]}
   ], V);
