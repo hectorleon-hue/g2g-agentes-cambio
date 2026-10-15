@@ -205,6 +205,12 @@ textarea.inp::placeholder,input.inp::placeholder{color:rgba(255,255,255,.3);}
 .gantt-ok{font-size:11.5px;margin-top:10px;padding:9px 12px;border-radius:8px;background:rgba(49,165,64,.1);border:1px solid rgba(49,165,64,.4);color:rgba(255,255,255,.75);}
 .gantt-ok strong{color:var(--verde);}
 .gantt-vacio{padding:16px;font-size:12px;color:rgba(255,255,255,.45);font-style:italic;}
+/* ── S8 · tablero ── */
+.fam-strip{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px;}
+.fam-chip{border-radius:50px;padding:5px 13px;font-size:11px;font-weight:700;letter-spacing:.03em;border:1px solid;}
+.fam-chip.ok{background:rgba(49,165,64,.14);color:var(--verde);border-color:rgba(49,165,64,.45);}
+.fam-chip.no{background:rgba(190,40,49,.12);color:#E8737B;border-color:rgba(190,40,49,.45);}
+.fam-chip small{font-weight:600;opacity:.75;}
 tr.fila-sugerida td{background:rgba(244,162,97,.06);vertical-align:bottom;}
 .sug-pill{display:block;background:rgba(244,162,97,.2);color:var(--naranja);border:1px solid rgba(244,162,97,.55);border-radius:50px;padding:1px 8px;font-size:8.5px;font-weight:700;letter-spacing:.07em;margin-bottom:5px;width:max-content;}
 .btn-del-row{
@@ -768,15 +774,95 @@ input[type=range]::-webkit-slider-thumb{
       <div style="margin-top:12px"><label style="font-size:12px;color:rgba(255,255,255,.5)">Supuestos del cálculo</label><textarea class="inp" id="s8_supuestos" oninput="onChange()" style="margin-top:6px" placeholder="El cálculo asume que..."></textarea></div>
     </div>
     <div class="section-block">
-      <h3>📊 Mi Dashboard de métricas — Top 3 KPIs</h3>
-      <div class="dyn-table-wrap"><table class="dyn-table">
-        <thead><tr><th>KPI</th><th>Línea base</th><th>Meta</th><th>Resultado actual</th><th>Semáforo</th></tr></thead>
-        <tbody>
-          <tr><td><input oninput="onChange()" placeholder="Nombre del KPI"></td><td><input oninput="onChange()" placeholder="Valor base"></td><td><input oninput="onChange()" placeholder="Meta"></td><td><input oninput="onChange()" placeholder="Actual"></td><td><select oninput="onChange()"><option>🟢 En meta</option><option>🟡 En riesgo</option><option>🔴 Fuera de meta</option></select></td></tr>
-          <tr><td><input oninput="onChange()" placeholder="Nombre del KPI"></td><td><input oninput="onChange()" placeholder="Valor base"></td><td><input oninput="onChange()" placeholder="Meta"></td><td><input oninput="onChange()" placeholder="Actual"></td><td><select oninput="onChange()"><option>🟢 En meta</option><option>🟡 En riesgo</option><option>🔴 Fuera de meta</option></select></td></tr>
-          <tr><td><input oninput="onChange()" placeholder="Nombre del KPI"></td><td><input oninput="onChange()" placeholder="Valor base"></td><td><input oninput="onChange()" placeholder="Meta"></td><td><input oninput="onChange()" placeholder="Actual"></td><td><select oninput="onChange()"><option>🟢 En meta</option><option>🟡 En riesgo</option><option>🔴 Fuera de meta</option></select></td></tr>
+      <h3>📊 El tablero de tu caso</h3>
+      <p style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:14px;line-height:1.55;">Seis métricas, <strong style="color:rgba(255,255,255,.85)">mínimo una de cada familia</strong>. Un tablero que solo mide Actividad te dice que trabajaste; no te dice que el cambio ocurrió. Regla dura de esta sesión: <strong style="color:rgba(255,255,255,.85)">si nadie sabe de dónde sale el número, esa métrica no entra</strong>. Y toda métrica de volumen necesita una de calidad al lado, o acabas premiando a quien captura rápido y mal.</p>
+      <div class="sug-box" style="background:rgba(51,180,210,.06);border-color:rgba(51,180,210,.35)">
+        <h4 style="color:var(--cian)">🧭 Las cuatro familias</h4>
+        <p class="sug-note" style="margin-bottom:0">
+          <strong style="color:rgba(255,255,255,.8)">Actividad</strong> — lo que hicimos: comunicados enviados, personas capacitadas, sesiones impartidas. Puede estar en verde con cero adopción.<br>
+          <strong style="color:rgba(255,255,255,.8)">Adopción</strong> — si lo usan y si lo usan bien: usuarios activos, registros completos, errores por captura.<br>
+          <strong style="color:rgba(255,255,255,.8)">Resultado de negocio</strong> — el indicador operativo que el cambio venía a mover: tiempo de ciclo, merma, costo, nivel de servicio.<br>
+          <strong style="color:rgba(255,255,255,.8)">Salud del cambio</strong> — qué le está costando a la gente: resistencia abierta, rotación en el área impactada, carga percibida, pulso de clima.
+        </p>
+      </div>
+      <div class="dyn-table-wrap"><table class="dyn-table" id="s8_dash_table">
+        <thead><tr><th>Métrica</th><th>Familia</th><th>Tipo</th><th>¿De dónde sale el dato?</th><th>¿Quién lo saca?</th><th>¿Cada cuándo?</th><th>Línea base</th><th>Meta y fecha de corte</th><th></th></tr></thead>
+        <tbody id="s8_dash_body">
+          <tr>
+            <td><input oninput="onChange()" placeholder="Ej: % de pedidos levantados en la app"></td>
+            <td><select oninput="onChange()"><option>Actividad</option><option>Adopción</option><option>Resultado de negocio</option><option>Salud del cambio</option></select></td>
+            <td><select oninput="onChange()"><option>Volumen</option><option>Calidad</option></select></td>
+            <td><textarea oninput="onChange()" placeholder="Reporte, sistema o tablero exacto"></textarea></td>
+            <td><input oninput="onChange()" placeholder="Nombre y puesto"></td>
+            <td><select oninput="onChange()"><option>Diaria</option><option>Semanal</option><option>Quincenal</option><option>Mensual</option><option>Trimestral</option></select></td>
+            <td><select oninput="onChange()"><option>Por definir</option><option>Ya existe</option><option>Hay que levantarla</option><option>No aplica</option></select></td>
+            <td><input oninput="onChange()" placeholder="Ej: 80% a las 8 semanas"></td>
+            <td><button class="btn-del-row" onclick="delRow(this)">✕</button></td>
+          </tr>
+          <tr>
+            <td><input oninput="onChange()" placeholder="Ej: % de pedidos levantados en la app"></td>
+            <td><select oninput="onChange()"><option>Actividad</option><option>Adopción</option><option>Resultado de negocio</option><option>Salud del cambio</option></select></td>
+            <td><select oninput="onChange()"><option>Volumen</option><option>Calidad</option></select></td>
+            <td><textarea oninput="onChange()" placeholder="Reporte, sistema o tablero exacto"></textarea></td>
+            <td><input oninput="onChange()" placeholder="Nombre y puesto"></td>
+            <td><select oninput="onChange()"><option>Diaria</option><option>Semanal</option><option>Quincenal</option><option>Mensual</option><option>Trimestral</option></select></td>
+            <td><select oninput="onChange()"><option>Por definir</option><option>Ya existe</option><option>Hay que levantarla</option><option>No aplica</option></select></td>
+            <td><input oninput="onChange()" placeholder="Ej: 80% a las 8 semanas"></td>
+            <td><button class="btn-del-row" onclick="delRow(this)">✕</button></td>
+          </tr>
+          <tr>
+            <td><input oninput="onChange()" placeholder="Ej: % de pedidos levantados en la app"></td>
+            <td><select oninput="onChange()"><option>Actividad</option><option>Adopción</option><option>Resultado de negocio</option><option>Salud del cambio</option></select></td>
+            <td><select oninput="onChange()"><option>Volumen</option><option>Calidad</option></select></td>
+            <td><textarea oninput="onChange()" placeholder="Reporte, sistema o tablero exacto"></textarea></td>
+            <td><input oninput="onChange()" placeholder="Nombre y puesto"></td>
+            <td><select oninput="onChange()"><option>Diaria</option><option>Semanal</option><option>Quincenal</option><option>Mensual</option><option>Trimestral</option></select></td>
+            <td><select oninput="onChange()"><option>Por definir</option><option>Ya existe</option><option>Hay que levantarla</option><option>No aplica</option></select></td>
+            <td><input oninput="onChange()" placeholder="Ej: 80% a las 8 semanas"></td>
+            <td><button class="btn-del-row" onclick="delRow(this)">✕</button></td>
+          </tr>
+          <tr>
+            <td><input oninput="onChange()" placeholder="Ej: % de pedidos levantados en la app"></td>
+            <td><select oninput="onChange()"><option>Actividad</option><option>Adopción</option><option>Resultado de negocio</option><option>Salud del cambio</option></select></td>
+            <td><select oninput="onChange()"><option>Volumen</option><option>Calidad</option></select></td>
+            <td><textarea oninput="onChange()" placeholder="Reporte, sistema o tablero exacto"></textarea></td>
+            <td><input oninput="onChange()" placeholder="Nombre y puesto"></td>
+            <td><select oninput="onChange()"><option>Diaria</option><option>Semanal</option><option>Quincenal</option><option>Mensual</option><option>Trimestral</option></select></td>
+            <td><select oninput="onChange()"><option>Por definir</option><option>Ya existe</option><option>Hay que levantarla</option><option>No aplica</option></select></td>
+            <td><input oninput="onChange()" placeholder="Ej: 80% a las 8 semanas"></td>
+            <td><button class="btn-del-row" onclick="delRow(this)">✕</button></td>
+          </tr>
+          <tr>
+            <td><input oninput="onChange()" placeholder="Ej: % de pedidos levantados en la app"></td>
+            <td><select oninput="onChange()"><option>Actividad</option><option>Adopción</option><option>Resultado de negocio</option><option>Salud del cambio</option></select></td>
+            <td><select oninput="onChange()"><option>Volumen</option><option>Calidad</option></select></td>
+            <td><textarea oninput="onChange()" placeholder="Reporte, sistema o tablero exacto"></textarea></td>
+            <td><input oninput="onChange()" placeholder="Nombre y puesto"></td>
+            <td><select oninput="onChange()"><option>Diaria</option><option>Semanal</option><option>Quincenal</option><option>Mensual</option><option>Trimestral</option></select></td>
+            <td><select oninput="onChange()"><option>Por definir</option><option>Ya existe</option><option>Hay que levantarla</option><option>No aplica</option></select></td>
+            <td><input oninput="onChange()" placeholder="Ej: 80% a las 8 semanas"></td>
+            <td><button class="btn-del-row" onclick="delRow(this)">✕</button></td>
+          </tr>
+          <tr>
+            <td><input oninput="onChange()" placeholder="Ej: % de pedidos levantados en la app"></td>
+            <td><select oninput="onChange()"><option>Actividad</option><option>Adopción</option><option>Resultado de negocio</option><option>Salud del cambio</option></select></td>
+            <td><select oninput="onChange()"><option>Volumen</option><option>Calidad</option></select></td>
+            <td><textarea oninput="onChange()" placeholder="Reporte, sistema o tablero exacto"></textarea></td>
+            <td><input oninput="onChange()" placeholder="Nombre y puesto"></td>
+            <td><select oninput="onChange()"><option>Diaria</option><option>Semanal</option><option>Quincenal</option><option>Mensual</option><option>Trimestral</option></select></td>
+            <td><select oninput="onChange()"><option>Por definir</option><option>Ya existe</option><option>Hay que levantarla</option><option>No aplica</option></select></td>
+            <td><input oninput="onChange()" placeholder="Ej: 80% a las 8 semanas"></td>
+            <td><button class="btn-del-row" onclick="delRow(this)">✕</button></td>
+          </tr>
         </tbody>
       </table></div>
+      <button class="btn-add-row" onclick="addRow('s8_dash_body',8)">+ Agregar métrica</button>
+      <div class="fam-strip" id="s8_fam_strip"></div>
+      <div id="s8_dash_diag"></div>
+      <div style="margin-top:16px">
+        <label style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--cian);display:block;margin-bottom:6px;">De las seis, ¿cuál es la métrica que defendería tu caso frente a un director?</label>
+        <textarea class="inp" id="s8_metrica_estrella" oninput="onChange()" placeholder="La métrica es... y la defiendo porque mueve... Si esa métrica no se mueve, el cambio no sirvió aunque todas las demás estén en verde."></textarea>
+      </div>
     </div>
     <div class="section-block" style="border-color:rgba(49,165,64,.4)">
       <h3 style="color:var(--verde)">📝 Autoevaluación Tier 2</h3>
@@ -941,6 +1027,7 @@ var G2G_TABLE_TYPES = {
   's6_plan_body': ['textarea','input','select','input','input','select'],
   's7_ent_body': ['input','input','textarea','select','input','select','input'],
   's7_ref_body': ['input','textarea','select','input'],
+  's8_dash_body': ['input','select','select','textarea','input','select','select','input'],
   's9_plan_body': ['select','input','textarea','textarea']
 };
 // Reubicacion de columnas cuando se agrega un campo en medio de una tabla ya usada.
@@ -965,6 +1052,7 @@ var G2G_SELECT_OPTS = {
   's6_plan_body': {2:['Reunión','Email','Video','Boletín','Cartelera','Otro'],5:['Pendiente','En proceso','Completado']},
   's7_ent_body': {3:['Taller presencial','E-learning','Coaching 1:1','OJT / En el puesto','Videoconferencia'],5:['Sin definir','S-8','S-7','S-6','S-5','S-4','S-3','S-2','S-1','S0','S+1','S+2','S+3','S+4']},
   's7_ref_body': {2:['S+1','S+2','S+3','S+4','S+6','S+8','S+12']},
+  's8_dash_body': {1:['Actividad','Adopción','Resultado de negocio','Salud del cambio'],2:['Volumen','Calidad'],5:['Diaria','Semanal','Quincenal','Mensual','Trimestral'],6:['Por definir','Ya existe','Hay que levantarla','No aplica']},
   's9_plan_body': {0:['Apertura','Concepto','Práctica guiada','Reto / Aplicación','Cierre']}
 };
 
@@ -1055,7 +1143,7 @@ function cargarCuaderno(rec) {
   document.getElementById('s-cuaderno').style.display = 'flex';
   if (rec.datos) { capturarAjenas(rec.datos); poblarCampos(rec.datos); }
   actualizarResumen();
-  try { refrescarSugerenciasS7(); dibujarGanttS7(); } catch(e) { console.warn('[G2G sug]', e); }
+  try { refrescarSugerenciasS7(); dibujarGanttS7(); validarTableroS8(); } catch(e) { console.warn('[G2G sug]', e); }
 }
 
 // Una clave pertenece al cuaderno si tiene un campo con ese id o es una tabla dinamica.
@@ -1102,7 +1190,7 @@ function poblarCampos(datos) {
   });
   // Tables
   var tables = ['s1_inv_body','s2_sh_body','s2_plan_body','s3_matriz_body','s3_mitigacion_body','s4_sh_body','s5_mens_body',
-                 's6_plan_body','s7_ent_body','s7_ref_body','s9_plan_body'];
+                 's6_plan_body','s7_ent_body','s7_ref_body','s8_dash_body','s9_plan_body'];
   tables.forEach(function(tbodyId) {
     if (datos[tbodyId]) {
       var tbody = document.getElementById(tbodyId);
@@ -1188,6 +1276,7 @@ function serializarDatos() {
     's6_plan_body': ['textarea','input','select','input','input','select'],
     's7_ent_body': ['input','input','textarea','select','input','select','input'],
     's7_ref_body': ['input','textarea','select','input'],
+    's8_dash_body': ['input','select','select','textarea','input','select','select','input'],
     's9_plan_body': ['select','input','textarea','textarea']
   };
   Object.keys(tableMap).forEach(function(tbodyId) {
@@ -1212,6 +1301,10 @@ function onChange() {
   var paneS7 = document.getElementById('tab-6');
   if (paneS7 && paneS7.classList.contains('active')) {
     try { dibujarGanttS7(); } catch(e) { console.warn('[G2G gantt]', e); }
+  }
+  var paneS8 = document.getElementById('tab-7');
+  if (paneS8 && paneS8.classList.contains('active')) {
+    try { validarTableroS8(); } catch(e) { console.warn('[G2G tablero]', e); }
   }
   if (SAVE_TIMER) clearTimeout(SAVE_TIMER);
   SAVE_TIMER = setTimeout(guardarDatos, 2500);
@@ -1265,6 +1358,7 @@ function showTab(n) {
   document.querySelectorAll('.tab-btn')[n].classList.add('active');
   if (n === 10) actualizarResumen();
   if (n === 6) { refrescarSugerenciasS7(); dibujarGanttS7(); }
+  if (n === 7) validarTableroS8();
 }
 
 // ══ RESUMEN
@@ -1504,6 +1598,64 @@ function dibujarGanttS7() {
     : '<div class="gantt-ok"><strong>Plan bien dimensionado:</strong> cada actividad tiene semana y KPI, el entrenamiento cierra antes del Go-live y existe refuerzo posterior. Esto ya se puede defender frente a un sponsor.</div>';
 }
 
+// ══ VALIDADOR DEL TABLERO S8
+var FAMILIAS_S8 = ['Actividad','Adopción','Resultado de negocio','Salud del cambio'];
+function metricasS8() {
+  var out = [];
+  filasDe('s8_dash_body').forEach(function(c) {
+    var nom = (c[0] || '').trim();
+    if (!nom) return;
+    out.push({nom: nom, fam: (c[1]||'').trim(), tipo: (c[2]||'').trim(), fuente: (c[3]||'').trim(),
+              quien: (c[4]||'').trim(), frec: (c[5]||'').trim(), base: (c[6]||'').trim(), meta: (c[7]||'').trim()});
+  });
+  return out;
+}
+function validarTableroS8() {
+  var strip = document.getElementById('s8_fam_strip');
+  var diag  = document.getElementById('s8_dash_diag');
+  if (!strip || !diag) return;
+  var m = metricasS8();
+  var porFam = {};
+  FAMILIAS_S8.forEach(function(f) { porFam[f] = []; });
+  m.forEach(function(x) { if (porFam[x.fam]) porFam[x.fam].push(x); });
+
+  strip.innerHTML = FAMILIAS_S8.map(function(f) {
+    var n = porFam[f].length;
+    return '<span class="fam-chip ' + (n ? 'ok' : 'no') + '">' + f +
+           ' <small>' + (n ? n + (n === 1 ? ' métrica' : ' métricas') : 'sin métrica') + '</small></span>';
+  }).join('') + '<span class="fam-chip ' + (m.length >= 6 ? 'ok' : 'no') + '">Total <small>' + m.length + ' de 6</small></span>';
+
+  if (!m.length) {
+    diag.innerHTML = '<div class="gantt-alerta">Empieza por el <strong>nombre de la métrica</strong>. Una métrica bien escrita se lee como una operación: «% de pedidos levantados en la app», no «uso del sistema».</div>';
+    return;
+  }
+  var avisos = [];
+  if (m.length < 6) avisos.push('Llevas <strong>' + m.length + ' de 6 métricas.</strong> El ejercicio pide seis para que el tablero no dependa de un solo ángulo.');
+  var faltan = FAMILIAS_S8.filter(function(f) { return !porFam[f].length; });
+  if (faltan.length) avisos.push('<strong>Sin cobertura en: ' + faltan.join(', ') + '.</strong> Un tablero al que le falta Resultado de negocio no le interesa a un director; uno al que le falta Salud del cambio no te avisa cuando la gente ya no aguanta.');
+  var solos = [];
+  FAMILIAS_S8.forEach(function(f) {
+    var vol = porFam[f].filter(function(x) { return x.tipo === 'Volumen'; });
+    var cal = porFam[f].filter(function(x) { return x.tipo === 'Calidad'; });
+    if (vol.length && !cal.length) solos.push(f);
+  });
+  if (solos.length) avisos.push('<strong>Volumen sin calidad al lado en: ' + solos.join(', ') + '.</strong> Si solo mides cantidad, premias a quien captura rápido y mal. Agrega una métrica de calidad en esa misma familia.');
+  var sinFuente = m.filter(function(x) { return !x.fuente; });
+  if (sinFuente.length) avisos.push('<strong>' + sinFuente.length + ' métrica(s) sin fuente de dato:</strong> ' + escHtml(sinFuente.map(function(x){return x.nom;}).join(' · ')) + '. Si nadie sabe de dónde sale el número, esa métrica no entra al tablero.');
+  var sinQuien = m.filter(function(x) { return !x.quien; });
+  if (sinQuien.length) avisos.push('<strong>' + sinQuien.length + ' métrica(s) sin responsable.</strong> Una métrica sin nombre y apellido no se saca: se olvida.');
+  var sinMeta = m.filter(function(x) { return !x.meta; });
+  if (sinMeta.length) avisos.push('<strong>' + sinMeta.length + ' métrica(s) sin meta ni fecha de corte.</strong> Sin meta no hay semáforo, y sin semáforo no hay conversación con el sponsor.');
+  var levantar = m.filter(function(x) { return x.base === 'Hay que levantarla'; });
+  var porDefinir = m.filter(function(x) { return x.base === 'Por definir' || !x.base; });
+  if (porDefinir.length) avisos.push('<strong>' + porDefinir.length + ' métrica(s) con línea base sin decidir.</strong> Marca si ya existe o si hay que levantarla antes del arranque.');
+  if (levantar.length) avisos.push('<strong>Levantar antes de arrancar (' + levantar.length + '):</strong> ' + escHtml(levantar.map(function(x){return x.nom;}).join(' · ')) + '. Si el cambio arranca sin línea base, nunca vas a poder demostrar que sirvió.');
+
+  diag.innerHTML = avisos.length
+    ? '<div class="gantt-alerta">' + avisos.join('<br><br>') + '</div>'
+    : '<div class="gantt-ok"><strong>Tablero completo:</strong> seis métricas, las cuatro familias cubiertas, cada volumen con su calidad, y todas con fuente, responsable, frecuencia, meta y línea base resuelta. Esto se puede presentar tal cual en un comité.</div>';
+}
+
 // ══ ADD / DEL TABLE ROWS
 function addRow(tbodyId, numCols) {
   var tbody = document.getElementById(tbodyId);
@@ -1518,6 +1670,7 @@ function addRow(tbodyId, numCols) {
     's6_plan_body': [['textarea','input','select','input','input','select']],
     's7_ent_body': [['input','input','textarea','select','input','select','input']],
     's7_ref_body': [['input','textarea','select','input']],
+    's8_dash_body': [['input','select','select','textarea','input','select','select','input']],
     's9_plan_body': [['select','input','textarea','textarea']]
   };
   var selectOpts = {
@@ -1530,6 +1683,7 @@ function addRow(tbodyId, numCols) {
     's6_plan_body': {2:['Reunión','Email','Video','Boletín','Cartelera','Otro'],5:['Pendiente','En proceso','Completado']},
     's7_ent_body': {3:['Taller presencial','E-learning','Coaching 1:1','OJT / En el puesto','Videoconferencia'],5:['Sin definir','S-8','S-7','S-6','S-5','S-4','S-3','S-2','S-1','S0','S+1','S+2','S+3','S+4']},
     's7_ref_body': {2:['S+1','S+2','S+3','S+4','S+6','S+8','S+12']},
+    's8_dash_body': {1:['Actividad','Adopción','Resultado de negocio','Salud del cambio'],2:['Volumen','Calidad'],5:['Diaria','Semanal','Quincenal','Mensual','Trimestral'],6:['Por definir','Ya existe','Hay que levantarla','No aplica']},
     's9_plan_body': {0:['Apertura','Concepto','Práctica guiada','Reto / Aplicación','Cierre']}
   };
   var row = tbody.insertRow();
@@ -1859,6 +2013,8 @@ function exportarExcel() {
   addSessionSheet('S8 · Métricas y ROI', [
     {title:'Aprendizaje clave', fields:[{label:'Mi aprendizaje',value:val('s8_aprendizaje')}]},
     {title:'ROI del cambio', fields:[{label:'Inversión total',value:val('s8_inversion')},{label:'Beneficio esperado',value:val('s8_beneficio')},{label:'Plazo de recuperación',value:val('s8_plazo')},{label:'ROI calculado',value:val('s8_roi')},{label:'Supuestos',value:val('s8_supuestos')}]},
+    {title:'El tablero de tu caso', table:{headers:['Métrica','Familia','Tipo','De dónde sale el dato','Quién lo saca','Cada cuándo','Línea base','Meta y fecha de corte'],rows:readTable('s8_dash_body',8)}},
+    {title:'Métrica que defiende el caso', fields:[{label:'Mi métrica estrella',value:val('s8_metrica_estrella')}]},
     {title:'Autoevaluación Tier 2', fields:[{label:'¿Plan de comunicación completo?',value:val('s8_ev1')},{label:'¿Calculo ROI?',value:val('s8_ev2')},{label:'¿KPIs de adopción?',value:val('s8_ev3')}]},
     {title:'Compromiso', fields:[{label:'Mi compromiso',value:val('s8_compromiso')}]}
   ], V);
