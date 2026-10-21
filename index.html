@@ -205,6 +205,47 @@ textarea.inp::placeholder,input.inp::placeholder{color:rgba(255,255,255,.3);}
 .gantt-ok{font-size:11.5px;margin-top:10px;padding:9px 12px;border-radius:8px;background:rgba(49,165,64,.1);border:1px solid rgba(49,165,64,.4);color:rgba(255,255,255,.75);}
 .gantt-ok strong{color:var(--verde);}
 .gantt-vacio{padding:16px;font-size:12px;color:rgba(255,255,255,.45);font-style:italic;}
+/* ── Examen final ── */
+.ex-hero{background:linear-gradient(135deg,rgba(190,40,49,.14),rgba(51,180,210,.08));
+  border:1px solid rgba(190,40,49,.4);border-radius:12px;padding:22px 26px;margin-bottom:18px;}
+.ex-hero h4{font-family:var(--font-t);font-size:22px;font-weight:800;color:#fff;margin-bottom:8px;}
+.ex-reglas{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px;}
+.ex-r{background:rgba(4,19,40,.55);border-radius:9px;padding:12px 14px;border-top:3px solid var(--cian);}
+.ex-r b{display:block;font-family:var(--font-t);font-size:24px;font-weight:800;color:var(--cian);line-height:1;}
+.ex-r span{display:block;font-size:11.5px;color:rgba(255,255,255,.6);margin-top:6px;line-height:1.3;}
+.ex-r.rojo{border-top-color:var(--rojo-vivo);} .ex-r.rojo b{color:#E8737B;}
+.ex-estado{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px;}
+.ex-chip{border-radius:50px;padding:6px 15px;font-size:12.5px;font-weight:700;letter-spacing:.03em;border:1px solid;}
+.ex-chip.ok{background:rgba(49,165,64,.16);color:var(--verde);border-color:rgba(49,165,64,.45);}
+.ex-chip.warn{background:rgba(244,162,97,.16);color:var(--naranja);border-color:rgba(244,162,97,.45);}
+.ex-chip.off{background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);border-color:rgba(255,255,255,.15);}
+.ex-q{background:var(--navy-light);border-radius:11px;padding:18px 22px;margin-bottom:14px;
+  border-left:4px solid rgba(255,255,255,.14);}
+.ex-q.resp{border-left-color:var(--cian);}
+.ex-q .qn{font-family:var(--font-t);font-size:11.5px;font-weight:800;color:var(--cian);
+  text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;}
+.ex-q .qt{font-size:15.5px;color:#fff;line-height:1.5;margin-bottom:13px;}
+.ex-op{display:block;background:rgba(4,19,40,.5);border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;padding:11px 14px;margin-bottom:7px;cursor:pointer;transition:.15s;
+  font-size:14.5px;color:rgba(255,255,255,.85);line-height:1.4;}
+.ex-op:hover{border-color:rgba(51,180,210,.5);background:rgba(18,45,77,.6);}
+.ex-op.sel{border-color:var(--cian);background:rgba(51,180,210,.14);color:#fff;}
+.ex-op input{margin-right:10px;accent-color:var(--cian);}
+.ex-barra{position:sticky;bottom:0;background:rgba(4,19,40,.96);border-top:1px solid rgba(51,180,210,.3);
+  padding:14px 0;margin-top:18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.ex-prog{flex:1;min-width:180px;height:8px;background:rgba(255,255,255,.1);border-radius:50px;overflow:hidden;}
+.ex-prog i{display:block;height:100%;background:var(--cian);border-radius:50px;transition:width .25s;}
+.btn-ex{background:linear-gradient(135deg,var(--cian-dark),var(--cian));color:var(--navy);border:none;
+  border-radius:50px;padding:13px 30px;font-family:var(--font-t);font-size:15px;font-weight:800;cursor:pointer;transition:.2s;}
+.btn-ex:hover{transform:translateY(-2px);} .btn-ex:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.btn-ex.rojo{background:linear-gradient(135deg,var(--rojo),var(--rojo-vivo));color:#fff;}
+.ex-res{text-align:center;padding:34px 24px;border-radius:14px;background:var(--navy-light);
+  border:1px solid rgba(255,255,255,.12);}
+.ex-res .pt{font-family:var(--font-t);font-size:84px;font-weight:800;line-height:1;}
+.ex-res .de{font-size:15px;color:rgba(255,255,255,.5);margin-top:4px;}
+.ex-res .bn{font-family:var(--font-t);font-size:21px;font-weight:800;margin-top:14px;}
+.ex-res .ms{font-size:15px;color:rgba(255,255,255,.7);line-height:1.5;margin-top:12px;max-width:620px;
+  margin-left:auto;margin-right:auto;}
 /* ── S8 · tablero ── */
 .fam-strip{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px;}
 .fam-chip{border-radius:50px;padding:5px 13px;font-size:11px;font-weight:700;letter-spacing:.03em;border:1px solid;}
@@ -348,6 +389,7 @@ input[type=range]::-webkit-slider-thumb{
     <button class="tab-btn ttt" onclick="showTab(8)">S9 · TTT Meto.</button>
     <button class="tab-btn ttt" onclick="showTab(9)">S10 · TTT Práctica ★</button>
     <button class="tab-btn" onclick="showTab(10)">📥 Cierre</button>
+    <button class="tab-btn" style="color:#E8737B" onclick="showTab(11)">🎓 Examen Final</button>
   </nav>
 
   <div id="tab-0" class="tab-pane active">
@@ -1001,6 +1043,54 @@ input[type=range]::-webkit-slider-thumb{
     </div>
   </div>
 
+  <div id="tab-11" class="tab-pane">
+    <div class="session-header">
+      <div class="session-badge" style="background:rgba(190,40,49,.2);color:#E8737B;border:1px solid rgba(190,40,49,.45)">🎓</div>
+      <div class="session-meta">
+        <h2>Examen Final de Conocimientos</h2>
+        <p>Agentes de Cambio G2G0526 · Módulos 1 a 8 · Resultado en escala de 0 a 100</p>
+      </div>
+    </div>
+
+    <div id="ex-intro">
+      <div class="ex-hero">
+        <h4>Antes de empezar, lee esto</h4>
+        <p style="font-size:15px;color:rgba(255,255,255,.75);line-height:1.55;">
+          Quince reactivos de opción múltiple sobre los ocho módulos del programa. No hay preguntas capciosas:
+          todas se responden con lo que trabajaste en sesión y documentaste en este cuaderno.
+          <strong style="color:#fff">Tienes dos oportunidades y cuenta la última que presentes</strong> —
+          no la mejor. Si entras por segunda vez, ese resultado reemplaza al primero.
+        </p>
+        <div class="ex-reglas">
+          <div class="ex-r"><b>15</b><span>reactivos de opción múltiple</span></div>
+          <div class="ex-r"><b>100</b><span>puntos posibles · 6.67 por acierto</span></div>
+          <div class="ex-r rojo"><b>2</b><span>intentos máximo · cuenta el último</span></div>
+          <div class="ex-r"><b>~20</b><span>minutos estimados · sin límite de tiempo</span></div>
+        </div>
+      </div>
+      <div class="ex-estado" id="ex-estado"></div>
+      <div style="background:rgba(244,162,97,.08);border:1px solid rgba(244,162,97,.4);border-radius:10px;padding:15px 20px;margin-bottom:18px;">
+        <p style="font-size:14px;color:rgba(255,255,255,.8);line-height:1.55;">
+          <strong style="color:var(--naranja)">El intento se cuenta al entrar, no al enviar.</strong>
+          Si abres el examen y lo abandonas a la mitad, ese intento ya se consumió. Entra cuando tengas
+          los veinte minutos disponibles.
+        </p>
+      </div>
+      <button class="btn-ex rojo" id="ex-btn-iniciar" onclick="exIniciar()">Iniciar el examen</button>
+    </div>
+
+    <div id="ex-cuestionario" style="display:none">
+      <div id="ex-lista"></div>
+      <div class="ex-barra">
+        <span id="ex-contador" style="font-size:13.5px;color:rgba(255,255,255,.7);white-space:nowrap"></span>
+        <div class="ex-prog"><i id="ex-prog-i" style="width:0%"></i></div>
+        <button class="btn-ex" id="ex-btn-enviar" onclick="exEnviar()" disabled>Enviar mis respuestas</button>
+      </div>
+    </div>
+
+    <div id="ex-resultado" style="display:none"></div>
+  </div>
+
   <footer class="app-footer">
     AGENTES DE CAMBIO G2G0526 ::: Grow2GetherMx ::: "Desaprende y transfórmate"
   </footer>
@@ -1143,7 +1233,7 @@ function cargarCuaderno(rec) {
   document.getElementById('s-cuaderno').style.display = 'flex';
   if (rec.datos) { capturarAjenas(rec.datos); poblarCampos(rec.datos); }
   actualizarResumen();
-  try { refrescarSugerenciasS7(); dibujarGanttS7(); validarTableroS8(); } catch(e) { console.warn('[G2G sug]', e); }
+  try { refrescarSugerenciasS7(); dibujarGanttS7(); validarTableroS8(); exPintarEstado(); } catch(e) { console.warn('[G2G sug]', e); }
 }
 
 // Una clave pertenece al cuaderno si tiene un campo con ese id o es una tabla dinamica.
@@ -1359,6 +1449,7 @@ function showTab(n) {
   if (n === 10) actualizarResumen();
   if (n === 6) { refrescarSugerenciasS7(); dibujarGanttS7(); }
   if (n === 7) validarTableroS8();
+  if (n === 11) exPintarEstado();
 }
 
 // ══ RESUMEN
@@ -1654,6 +1745,216 @@ function validarTableroS8() {
   diag.innerHTML = avisos.length
     ? '<div class="gantt-alerta">' + avisos.join('<br><br>') + '</div>'
     : '<div class="gantt-ok"><strong>Tablero completo:</strong> seis métricas, las cuatro familias cubiertas, cada volumen con su calidad, y todas con fuente, responsable, frecuencia, meta y línea base resuelta. Esto se puede presentar tal cual en un comité.</div>';
+}
+
+
+// ══ EXAMEN FINAL ════════════════════════════════════
+var EX_B = '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', EX_S = '/6GlOKsn70N5kGEcwsuEyA==', EX_V = 'qSClK9VtzmyQJpF2', EX_IT = 250000, EX_P = 'g2g0526-examen-final-agentes-de-cambio';
+var EX_MAX = 2;                 // intentos base
+var EX_REACTIVOS = null;        // banco descifrado, solo en memoria
+var EX_RESP = [];               // respuestas del intento en curso
+var EX_ID = null;               // id del intento abierto
+var EX_T0 = null;
+
+function _b2a(b64){ var s = atob(b64), u = new Uint8Array(s.length);
+  for (var i=0;i<s.length;i++) u[i] = s.charCodeAt(i); return u; }
+
+async function exBanco() {
+  if (EX_REACTIVOS) return EX_REACTIVOS;
+  var base = await crypto.subtle.importKey('raw', new TextEncoder().encode(EX_P), 'PBKDF2', false, ['deriveKey']);
+  var k = await crypto.subtle.deriveKey(
+    {name:'PBKDF2', salt:_b2a(EX_S), iterations:EX_IT, hash:'SHA-256'},
+    base, {name:'AES-GCM', length:256}, false, ['decrypt']);
+  var claro = await crypto.subtle.decrypt({name:'AES-GCM', iv:_b2a(EX_V)}, k, _b2a(EX_B));
+  EX_REACTIVOS = JSON.parse(new TextDecoder().decode(claro));
+  return EX_REACTIVOS;
+}
+
+function exDe(datos) {
+  var e = (datos && datos.examen_final) || {};
+  if (!Array.isArray(e.intentos)) e.intentos = [];
+  if (typeof e.extra !== 'number') e.extra = 0;
+  return e;
+}
+function exCupo(e) { return EX_MAX + (parseInt(e.extra, 10) || 0); }
+function exUltimo(e) {
+  var hechos = e.intentos.filter(function(i){ return typeof i.aciertos === 'number'; });
+  return hechos.length ? hechos[hechos.length - 1] : null;
+}
+
+// Escribe SOLO sobre datos.examen_final, releyendo el registro para no pisar
+// nada de lo que el cuaderno haya guardado mientras tanto.
+async function exEscribir(mutador) {
+  if (IS_OFFLINE || !DB || !REC_ID) {
+    var em = (localStorage.getItem(LOCAL_KEY_PREFIX+'email') || '');
+    if (!em) return 'offline';
+    var g = JSON.parse(localStorage.getItem(LOCAL_KEY_PREFIX+em) || '{}');
+    g.datos = g.datos || {};
+    var e0 = exDe(g.datos); mutador(e0); g.datos.examen_final = e0;
+    localStorage.setItem(LOCAL_KEY_PREFIX+em, JSON.stringify(g));
+    DATOS_AJENOS['examen_final'] = e0;
+    return 'ok';
+  }
+  try {
+    var r = await DB.from(TABLE_NAME).select('datos').eq('id', REC_ID).limit(1);
+    if (r.error) throw r.error;
+    var d = (r.data && r.data[0] && r.data[0].datos) || {};
+    var e = exDe(d);
+    mutador(e);
+    // lo que está en pantalla manda sobre la copia leída, para no perder tecleo reciente
+    var enPantalla = serializarDatos();
+    Object.keys(enPantalla).forEach(function(k){ d[k] = enPantalla[k]; });
+    d.examen_final = e;
+    var up = await DB.from(TABLE_NAME).update({datos:d, updated_at:new Date().toISOString()}).eq('id', REC_ID);
+    if (up.error) throw up.error;
+    DATOS_AJENOS['examen_final'] = e;
+    return 'ok';
+  } catch(err) { console.error('[G2G examen]', err); return 'error'; }
+}
+
+function exPintarEstado() {
+  var cont = document.getElementById('ex-estado');
+  if (!cont) return;
+  var e = exDe(DATOS_AJENOS), cupo = exCupo(e);
+  var usados = e.intentos.length, ult = exUltimo(e);
+  var h = '<span class="ex-chip ' + (usados >= cupo ? 'warn' : 'ok') + '">Intentos usados: '
+        + usados + ' de ' + cupo + '</span>';
+  if (ult) h += '<span class="ex-chip ok">Resultado vigente: ' + ult.puntos + ' / 100</span>';
+  else h += '<span class="ex-chip off">Sin resultado todavía</span>';
+  if (usados >= cupo) h += '<span class="ex-chip warn">Sin intentos disponibles</span>';
+  cont.innerHTML = h;
+  var b = document.getElementById('ex-btn-iniciar');
+  if (b) {
+    if (usados >= cupo) { b.disabled = true; b.textContent = 'Ya usaste tus ' + cupo + ' intentos'; }
+    else { b.disabled = false; b.textContent = usados === 0 ? 'Iniciar el examen' : 'Iniciar mi segundo intento'; }
+  }
+}
+
+async function exIniciar() {
+  var e = exDe(DATOS_AJENOS);
+  var usados = e.intentos.length, cupo = exCupo(e);
+  if (usados >= cupo) { exPintarEstado(); return; }
+  var aviso = usados === 0
+    ? 'Vas a usar tu primer intento de ' + cupo + '. El intento se cuenta desde ahora. ¿Continuamos?'
+    : 'Este es tu ÚLTIMO intento y su resultado REEMPLAZA al anterior, aunque salga más bajo. ¿Continuamos?';
+  if (!confirm(aviso)) return;
+  var btn = document.getElementById('ex-btn-iniciar');
+  btn.disabled = true; btn.textContent = 'Preparando…';
+  EX_ID = 'ex' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  var res = await exEscribir(function(ex){
+    ex.intentos.push({id: EX_ID, fecha_inicio: new Date().toISOString()});
+    ex.cupo = exCupo(ex);
+  });
+  if (res === 'error') {
+    alert('No pudimos registrar el intento. Revisa tu conexión y vuelve a intentarlo.');
+    btn.disabled = false; exPintarEstado(); return;
+  }
+  var banco = await exBanco();
+  EX_RESP = new Array(banco.length).fill(null);
+  EX_T0 = Date.now();
+  document.getElementById('ex-intro').style.display = 'none';
+  document.getElementById('ex-cuestionario').style.display = 'block';
+  exPintarPreguntas(banco);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function exPintarPreguntas(banco) {
+  var h = '';
+  banco.forEach(function(q, i) {
+    h += '<div class="ex-q" id="exq' + i + '"><div class="qn">Reactivo ' + (i+1) + ' de ' + banco.length + '</div>'
+       + '<div class="qt">' + escHtml(q.p) + '</div>';
+    q.o.forEach(function(o, j) {
+      h += '<label class="ex-op" id="exo' + i + '_' + j + '">'
+         + '<input type="radio" name="exr' + i + '" value="' + j + '" onchange="exMarcar(' + i + ',' + j + ')">'
+         + escHtml(o) + '</label>';
+    });
+    h += '</div>';
+  });
+  document.getElementById('ex-lista').innerHTML = h;
+  exProgreso();
+}
+
+function exMarcar(i, j) {
+  EX_RESP[i] = j;
+  var q = document.getElementById('exq' + i);
+  if (q) q.classList.add('resp');
+  (EX_REACTIVOS[i].o || []).forEach(function(_, k) {
+    var el = document.getElementById('exo' + i + '_' + k);
+    if (el) el.classList.toggle('sel', k === j);
+  });
+  exProgreso();
+}
+
+function exProgreso() {
+  var n = EX_RESP.filter(function(x){ return x !== null; }).length, t = EX_RESP.length;
+  document.getElementById('ex-contador').textContent = n + ' de ' + t + ' contestados';
+  document.getElementById('ex-prog-i').style.width = (t ? n*100/t : 0) + '%';
+  document.getElementById('ex-btn-enviar').disabled = (n < t);
+}
+
+async function exEnviar() {
+  var sin = EX_RESP.indexOf(null);
+  if (sin >= 0) {
+    document.getElementById('exq' + sin).scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  if (!confirm('Vas a enviar tus respuestas. Este resultado queda como tu calificación vigente. ¿Enviar?')) return;
+  var btn = document.getElementById('ex-btn-enviar');
+  btn.disabled = true; btn.textContent = 'Calificando…';
+  var banco = EX_REACTIVOS;
+  var aciertos = 0;
+  banco.forEach(function(q, i){ if (EX_RESP[i] === q.r) aciertos++; });
+  var puntos = Math.round(aciertos * 100 / banco.length);
+  var dur = Math.round((Date.now() - EX_T0) / 1000);
+  var reg = {id: EX_ID, fecha: new Date().toISOString(), aciertos: aciertos, total: banco.length,
+             puntos: puntos, duracion_seg: dur, respuestas: EX_RESP.slice()};
+  var res = await exEscribir(function(ex){
+    var k = -1;
+    for (var i = 0; i < ex.intentos.length; i++) if (ex.intentos[i].id === EX_ID) k = i;
+    if (k >= 0) ex.intentos[k] = reg; else ex.intentos.push(reg);
+    ex.final = reg;              // cuenta SIEMPRE el último presentado
+    ex.final_puntos = puntos;
+    ex.cupo = exCupo(ex);
+  });
+  if (res === 'error') {
+    alert('Hubo un problema al guardar tu resultado. No cierres la pestaña y vuelve a presionar Enviar.');
+    btn.disabled = false; btn.textContent = 'Enviar mis respuestas'; return;
+  }
+  document.getElementById('ex-cuestionario').style.display = 'none';
+  exPintarResultado(puntos, aciertos, banco.length);
+}
+
+function exPintarResultado(puntos, aciertos, total) {
+  var e = exDe(DATOS_AJENOS), restan = exCupo(e) - e.intentos.length;
+  var col, banda, msg;
+  if (puntos >= 90)      { col = 'var(--verde)';  banda = 'Sobresaliente'; }
+  else if (puntos >= 80) { col = 'var(--verde)';  banda = 'Competente'; }
+  else if (puntos >= 70) { col = 'var(--cian)';   banda = 'Acreditado'; }
+  else                   { col = '#E8737B';       banda = 'No acreditado'; }
+  if (puntos >= 70) {
+    msg = restan > 0
+      ? 'Acreditaste el examen. Te queda ' + restan + ' intento más: recuerda que si lo presentas, ese resultado reemplaza a este aunque salga más bajo.'
+      : 'Acreditaste el examen y este es tu resultado final. Ya no hay más intentos.';
+  } else {
+    msg = restan > 0
+      ? 'Todavía no alcanzas los 70 puntos. Te queda ' + restan + ' intento: repasa tus notas del cuaderno antes de volver a entrar.'
+      : 'Este es tu resultado final. Acércate con los facilitadores para acordar cómo se regulariza tu acreditación.';
+  }
+  document.getElementById('ex-resultado').style.display = 'block';
+  document.getElementById('ex-resultado').innerHTML =
+    '<div class="ex-res"><div class="pt" style="color:' + col + '">' + puntos + '</div>'
+    + '<div class="de">de 100 puntos · ' + aciertos + ' de ' + total + ' reactivos correctos</div>'
+    + '<div class="bn" style="color:' + col + '">' + banda + '</div>'
+    + '<div class="ms">' + msg + '</div>'
+    + '<div style="margin-top:20px"><button class="btn-ex" onclick="exVolver()">Volver al examen</button></div></div>';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function exVolver() {
+  document.getElementById('ex-resultado').style.display = 'none';
+  document.getElementById('ex-intro').style.display = 'block';
+  EX_RESP = []; EX_ID = null;
+  exPintarEstado();
 }
 
 // ══ ADD / DEL TABLE ROWS
@@ -2025,6 +2326,18 @@ function exportarExcel() {
     {title:'Plan de facilitación', table:{headers:['Momento','Tiempo','Actividad','Materiales'],rows:readTable('s9_plan_body',4)}},
     {title:'Estrategia y compromiso', fields:[{label:'Cómo manejo la resistencia',value:val('s9_resistencia')},{label:'Mi compromiso',value:val('s9_compromiso')}]}
   ], NA);
+
+  (function(){
+    var ex = (DATOS_AJENOS && DATOS_AJENOS.examen_final) || {};
+    var ult = (ex.intentos || []).filter(function(i){ return typeof i.aciertos === 'number'; }).pop();
+    addSessionSheet('Examen Final', [
+      {title:'Resultado', fields:[
+        {label:'Puntaje final (0-100)', value: ult ? String(ult.puntos) : 'Sin presentar'},
+        {label:'Aciertos', value: ult ? (ult.aciertos + ' de ' + ult.total) : '—'},
+        {label:'Intentos usados', value: String((ex.intentos||[]).length) + ' de ' + (ex.cupo || 2)},
+        {label:'Fecha', value: ult && ult.fecha ? new Date(ult.fecha).toLocaleString('es-MX') : '—'}]}
+    ], V);
+  })();
 
   addSessionSheet('S10 · TTT Práctica', [
     {title:'Aprendizaje y micro-facilitación', fields:[{label:'Mi aprendizaje',value:val('s10_aprendizaje')},{label:'Fortalezas recibidas',value:val('s10_fortalezas')},{label:'Áreas de mejora',value:val('s10_mejoras')}]},
