@@ -110,6 +110,41 @@ h1 small{display:block;font-family:var(--font-b);font-weight:400;
 .vacio b{display:block;font-family:var(--font-t);font-size:17px;color:rgba(255,255,255,.6);margin-bottom:8px;}
 footer{margin-top:18px;text-align:center;font-size:11px;color:rgba(255,255,255,.32);
   letter-spacing:.05em;border-top:1px solid rgba(51,180,210,.14);padding-top:14px;}
+/* ── barra de foco */
+.foco{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy-med);
+  border:1px solid rgba(244,162,97,.28);border-radius:var(--r);padding:12px 18px;margin-bottom:16px;}
+.foco label{font-family:var(--font-t);font-weight:800;font-size:11.5px;color:var(--naranja);
+  text-transform:uppercase;letter-spacing:.09em;}
+.foco select{background:var(--card);border:1px solid rgba(244,162,97,.4);color:#fff;
+  border-radius:9px;padding:10px 14px;font-size:15px;font-family:var(--font-b);
+  min-width:290px;outline:none;cursor:pointer;}
+.foco select:focus{border-color:var(--naranja);}
+.foco button{background:rgba(51,180,210,.14);border:1px solid rgba(51,180,210,.4);color:var(--cian);
+  border-radius:50px;padding:9px 18px;font-size:12.5px;font-family:var(--font-t);font-weight:700;cursor:pointer;}
+.foco button:hover{background:rgba(51,180,210,.26);}
+.foco .av{margin-left:auto;font-size:12px;color:rgba(255,255,255,.45);}
+
+/* ── vista de un solo presentador */
+.solo{background:var(--navy-med);border:1px solid rgba(244,162,97,.25);border-radius:var(--r);
+  padding:30px 34px;margin-bottom:16px;text-align:center;}
+.solo h3{font-family:var(--font-t);font-weight:800;font-size:clamp(30px,4.4vw,58px);line-height:1.05;}
+.solo .n{font-size:13px;color:rgba(255,255,255,.5);margin-top:8px;letter-spacing:.04em;}
+.solo .big{font-size:clamp(42px,6vw,76px);letter-spacing:5px;color:var(--naranja);margin:18px 0 4px;}
+.solo .big s{color:rgba(255,255,255,.15);text-decoration:none;}
+.solo .prom{font-family:var(--font-t);font-weight:800;font-size:clamp(34px,5vw,62px);color:#fff;line-height:1;}
+.solo .prom span{font-size:.4em;color:rgba(255,255,255,.4);font-weight:600;}
+.solo-asp{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:26px;}
+.solo-asp > div{background:var(--card);border-radius:12px;padding:16px 18px;text-align:left;}
+.solo-asp .t{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:9px;}
+.solo-asp .t span{font-size:12.5px;color:rgba(255,255,255,.7);}
+.solo-asp .t b{font-family:var(--font-t);font-size:24px;color:var(--cian);}
+.solo-asp i{height:9px;background:rgba(255,255,255,.08);border-radius:6px;display:block;overflow:hidden;}
+.solo-asp i u{display:block;height:100%;border-radius:6px;
+  background:linear-gradient(90deg,var(--cian-dark),var(--cian));transition:width .6s;}
+.solo-coms{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:12px;}
+.alerta{background:rgba(244,162,97,.12);border:1px solid rgba(244,162,97,.42);color:var(--naranja);
+  border-radius:10px;padding:11px 16px;font-size:12.5px;margin-bottom:14px;line-height:1.5;}
+.alerta b{color:#fff;}
 .err{background:rgba(165,32,42,.15);border:1px solid rgba(165,32,42,.45);color:var(--rosa);
   border-radius:10px;padding:11px 15px;font-size:12.5px;margin-bottom:14px;display:none;}
 </style>
@@ -125,15 +160,25 @@ footer{margin-top:18px;text-align:center;font-size:11px;color:rgba(255,255,255,.
 </header>
 
 <div class="err" id="err"></div>
+<div class="alerta" id="alerta" style="display:none"></div>
 
-<div class="kpis">
-  <div class="kpi"><b id="k-eval">0</b><span>Evaluaciones recibidas</span></div>
-  <div class="kpi v"><b id="k-pres">0</b><span>Presentadores evaluados</span></div>
-  <div class="kpi n"><b id="k-jue">0</b><span>Compañeros evaluando</span></div>
-  <div class="kpi r"><b id="k-prom">—</b><span>Promedio general del grupo</span></div>
+<div class="foco">
+  <label for="sel-foco">Presentador en foco</label>
+  <select id="sel-foco" onchange="enfocar(this.value)">
+    <option value="">— Todos los presentadores —</option>
+  </select>
+  <button onclick="enfocar('')">Ver a todos</button>
+  <span class="av" id="av-foco">Elige a quién se le toma la foto en pantalla</span>
 </div>
 
-<div class="grid">
+<div class="kpis">
+  <div class="kpi"><b id="k-eval">0</b><span id="l-eval">Evaluaciones recibidas</span></div>
+  <div class="kpi v"><b id="k-pres">0</b><span id="l-pres">Presentadores evaluados</span></div>
+  <div class="kpi n"><b id="k-jue">0</b><span id="l-jue">Compañeros evaluando</span></div>
+  <div class="kpi r"><b id="k-prom">—</b><span id="l-prom">Promedio general del grupo</span></div>
+</div>
+
+<div class="grid" id="vista-todos">
   <div>
     <div class="panel" style="margin-bottom:16px">
       <h2>Cómo va cada presentador <em id="pista">Da clic en un nombre para ver solo sus comentarios</em></h2>
@@ -151,6 +196,14 @@ footer{margin-top:18px;text-align:center;font-size:11px;color:rgba(255,255,255,.
   </div>
 </div>
 
+<div id="vista-solo" style="display:none">
+  <div class="solo" id="solo-cab"></div>
+  <div class="panel">
+    <h2>Lo que le escribieron <em id="solo-n">0 comentarios</em></h2>
+    <div class="solo-coms" id="solo-muro"></div>
+  </div>
+</div>
+
 <footer>AGENTES DE CAMBIO G2G0526 &nbsp;:::&nbsp; Grow2GetherMx &nbsp;:::&nbsp; «Desaprende y transfórmate»</footer>
 
 <script>
@@ -158,7 +211,7 @@ var API  = 'https://istfqqmuxcuhduakrojo.supabase.co/rest/v1/ac_cuadernos';
 var KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlzdGZxcW11eGN1aGR1YWtyb2pvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1MDgxNDQsImV4cCI6MjEwMTA4NDE0NH0.vWmIXGut_TO0Azw3VpYad0cG-pil5eVu9EsUiOq1NFc';
 var CADA = 8000;
 var CRIT = [['d','Dominio del tema'],['c','Comunicación que engancha'],['a','Mantuvo la atención']];
-var FOCO = null, ULTIMO = 0;
+var FOCO = null, ULTIMO = 0, ULT = null;
 
 function esc(t){ return String(t==null?'':t).replace(/[&<>"]/g,function(c){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
@@ -180,7 +233,7 @@ async function traer(){
 }
 
 function agregar(filas){
-  var porPersona = {}, jueces = 0, total = 0, suma = 0, coment = [];
+  var porPersona = {}, jueces = 0, total = 0, suma = 0, coment = [], sinDestino = 0;
   filas.forEach(function(f){
     var d = f.datos || {}, bruto = d.s12_eval;
     if (!bruto) return;
@@ -188,41 +241,118 @@ function agregar(filas){
     if (!Array.isArray(lista) || !lista.length) return;
     var aporto = false;
     lista.forEach(function(e){
-      if (!e || !e.p || !e.g) return;              // sin persona o sin valoración general: no cuenta
+      if (!e) return;
+      var hayAlgo = e.g || e.d || e.c || e.a || (e.t && e.t.trim());
+      if (!e.p || e.p === '__otro__' && !(e.n && e.n.trim())) {
+        if (hayAlgo) sinDestino++;                 // calificó pero no eligió a quién
+        return;
+      }
+      if (!e.g) { if (hayAlgo) sinDestino++; return; }
       aporto = true; total++; suma += e.g;
-      var id = e.p, nom = titulo(e.n || e.p);
-      var p = porPersona[id] || (porPersona[id] = {nom:nom, n:0, g:0, d:0, c:0, a:0, nd:0, nc:0, na:0});
-      p.nom = nom; p.n++; p.g += e.g;
-      ['d','c','a'].forEach(function(k){ if (e[k]) { p[k] += e[k]; p['n'+k]++; } });
-      if (e.t && e.t.trim()) coment.push({ para:nom, txt:e.t.trim(), g:e.g, cuando:f.updated_at||'' });
+      var id = (e.p === '__otro__') ? 'libre:' + (e.n||'').toLowerCase().trim() : e.p;
+      var nom = titulo(e.n || e.p);
+      var o = porPersona[id] || (porPersona[id] = {nom:nom, n:0, g:0, d:0, c:0, a:0, nd:0, nc:0, na:0});
+      o.nom = nom; o.n++; o.g += e.g;
+      ['d','c','a'].forEach(function(k){ if (e[k]) { o[k] += e[k]; o['n'+k]++; } });
+      if (e.t && e.t.trim()) coment.push({ id:id, para:nom, txt:e.t.trim(), g:e.g, cuando:f.updated_at||'' });
     });
     if (aporto) jueces++;
   });
   var rank = Object.keys(porPersona).map(function(id){
-    var p = porPersona[id];
-    return { id:id, nom:p.nom, n:p.n,
-             g: p.g/p.n,
-             d: p.nd ? p.d/p.nd : 0, c: p.nc ? p.c/p.nc : 0, a: p.na ? p.a/p.na : 0 };
+    var o = porPersona[id];
+    return { id:id, nom:o.nom, n:o.n, g:o.g/o.n,
+             d: o.nd ? o.d/o.nd : 0, c: o.nc ? o.c/o.nc : 0, a: o.na ? o.a/o.na : 0 };
   }).sort(function(x,y){ return y.g - x.g || y.n - x.n; });
   coment.sort(function(x,y){ return (y.cuando||'').localeCompare(x.cuando||''); });
-  return { rank:rank, coment:coment, total:total, jueces:jueces,
+  return { rank:rank, coment:coment, total:total, jueces:jueces, sinDestino:sinDestino,
            prom: total ? suma/total : 0 };
 }
 
+function kpi(id, val, etiqueta){
+  var el = document.getElementById(id); if (el) el.textContent = val;
+  if (etiqueta) { var l = document.getElementById('l-' + id.slice(2)); if (l) l.textContent = etiqueta; }
+}
+
+function pintarSelector(rank){
+  var sel = document.getElementById('sel-foco');
+  var firma = rank.map(function(p){ return p.id; }).join('|');
+  if (sel.dataset.firma !== firma) {
+    sel.dataset.firma = firma;
+    sel.innerHTML = '<option value="">— Todos los presentadores —</option>' +
+      rank.map(function(p){
+        return '<option value="' + esc(p.id) + '">' + esc(p.nom) +
+               '  ·  ' + p.g.toFixed(1) + ' ★  (' + p.n + ')</option>';
+      }).join('');
+  }
+  sel.value = FOCO || '';
+  document.getElementById('av-foco').textContent = FOCO
+    ? 'En pantalla solo este presentador'
+    : (rank.length ? 'Elige a quién se le toma la foto en pantalla' : 'Aún no hay presentadores que mostrar');
+}
+
+function pintarAlerta(a){
+  var A = document.getElementById('alerta');
+  if (!a.sinDestino) { A.style.display = 'none'; return; }
+  A.style.display = 'block';
+  A.innerHTML = '<b>' + a.sinDestino + ' evaluaci' + (a.sinDestino===1?'ón':'ones') +
+    ' sin destinatario.</b> Alguien calificó con estrellas pero no eligió a quién evaluaba, ' +
+    'así que no se puede sumar a nadie. Pídeles que abran la pestaña «⭐ Retro de Práctica» ' +
+    'y seleccionen la persona en «¿A quién evalúas?» — lo que escribieron sigue guardado.';
+}
+
+function tarjetaComentario(c, conNombre){
+  return '<div class="com">' + (conNombre
+      ? '<div class="para"><span>Para ' + esc(c.para) + '</span><u>' + estrellas(c.g).replace(/<s>★<\/s>/g,'') + '</u></div>'
+      : '<div class="para"><span>Valoración general</span><u>' + estrellas(c.g).replace(/<s>★<\/s>/g,'') + '</u></div>') +
+    '<p>' + esc(c.txt) + '</p>' +
+    '<div class="anon">Retroalimentación anónima de un compañero</div></div>';
+}
+
 function pintar(a){
-  document.getElementById('k-eval').textContent = a.total;
-  document.getElementById('k-pres').textContent = a.rank.length;
-  document.getElementById('k-jue').textContent  = a.jueces;
-  document.getElementById('k-prom').textContent = a.prom ? a.prom.toFixed(1) : '—';
+  ULT = a;
+  pintarSelector(a.rank);
+  pintarAlerta(a);
+  var solo = FOCO ? a.rank.filter(function(p){ return p.id === FOCO; })[0] : null;
+  if (FOCO && !solo) { FOCO = null; }           // el enfocado ya no existe
+  document.getElementById('vista-todos').style.display = solo ? 'none' : '';
+  document.getElementById('vista-solo').style.display  = solo ? '' : 'none';
+
+  if (solo) {
+    var asp = CRIT.map(function(c){ return {t:c[1], v:solo[c[0]]}; })
+                  .filter(function(x){ return x.v; })
+                  .sort(function(x,y){ return y.v - x.v; });
+    kpi('k-eval', solo.n, 'Evaluaciones que recibió');
+    kpi('k-prom', solo.g.toFixed(1), 'Su promedio general');
+    kpi('k-pres', asp.length ? asp[0].v.toFixed(1) : '—',
+        asp.length ? 'Lo más alto · ' + asp[0].t : 'Aspecto más alto');
+    kpi('k-jue',  asp.length ? asp[asp.length-1].v.toFixed(1) : '—',
+        asp.length ? 'A reforzar · ' + asp[asp.length-1].t : 'Aspecto a reforzar');
+    document.getElementById('solo-cab').innerHTML =
+      '<h3>' + esc(solo.nom) + '</h3>' +
+      '<div class="n">' + solo.n + (solo.n===1?' evaluación recibida':' evaluaciones recibidas') + '</div>' +
+      '<div class="big">' + estrellas(solo.g) + '</div>' +
+      '<div class="prom">' + solo.g.toFixed(1) + '<span> / 5</span></div>' +
+      '<div class="solo-asp">' + CRIT.map(function(c){
+        var v = solo[c[0]];
+        return '<div><div class="t"><span>' + c[1] + '</span><b>' + (v?v.toFixed(1):'—') + '</b></div>' +
+               '<i><u style="width:' + (v/5*100).toFixed(0) + '%"></u></i></div>';
+      }).join('') + '</div>';
+    var cs = a.coment.filter(function(c){ return c.id === solo.id; });
+    document.getElementById('solo-n').textContent = cs.length + (cs.length===1?' comentario':' comentarios');
+    document.getElementById('solo-muro').innerHTML = cs.length
+      ? cs.map(function(c){ return tarjetaComentario(c, false); }).join('')
+      : '<div class="vacio"><b>Sin comentarios escritos</b>Le pusieron estrellas, pero nadie dejó texto todavía.</div>';
+    return;
+  }
+
+  kpi('k-eval', a.total, 'Evaluaciones recibidas');
+  kpi('k-pres', a.rank.length, 'Presentadores evaluados');
+  kpi('k-jue', a.jueces, 'Compañeros evaluando');
+  kpi('k-prom', a.prom ? a.prom.toFixed(1) : '—', 'Promedio general del grupo');
 
   var R = document.getElementById('ranking');
-  if (!a.rank.length) {
-    R.innerHTML = '<div class="vacio"><b>Todavía no llega ninguna evaluación</b>' +
-      'En cuanto el grupo empiece a calificar en la pestaña «⭐ Retro de Práctica»<br>' +
-      'del cuaderno digital, los resultados aparecen aquí solos.</div>';
-  } else {
-    R.innerHTML = a.rank.map(function(p, i){
-      return '<div class="fila' + (FOCO===p.id?' sel':'') + '" onclick="enfocar(\'' + esc(p.id) + '\')">' +
+  R.innerHTML = a.rank.length ? a.rank.map(function(p, i){
+      return '<div class="fila" onclick="enfocar(\'' + esc(p.id) + '\')">' +
         '<div class="pos">' + (i+1) + '</div>' +
         '<div><div class="nom">' + esc(p.nom) + '</div>' +
         '<div class="sub">' + p.n + (p.n===1?' evaluación':' evaluaciones') + '</div>' +
@@ -234,33 +364,33 @@ function pintar(a){
         }).join('') + '</div>' +
         '<div class="estrellas">' + estrellas(p.g) + '<em>' + p.g.toFixed(1) + '</em></div>' +
       '</div>';
-    }).join('');
-  }
+    }).join('')
+    : '<div class="vacio"><b>Todavía no llega ninguna evaluación</b>' +
+      'En cuanto el grupo califique en la pestaña «⭐ Retro de Práctica»<br>' +
+      'del cuaderno digital, los resultados aparecen aquí solos.</div>';
 
-  var A = document.getElementById('aspectos');
   var tot = {d:0,c:0,a:0,g:0}, cnt = {d:0,c:0,a:0,g:0};
   a.rank.forEach(function(p){ ['d','c','a','g'].forEach(function(k){
     if (p[k]) { tot[k] += p[k]*p.n; cnt[k] += p.n; } }); });
-  A.innerHTML = [['g','Valoración general']].concat(CRIT).map(function(c){
-    var v = cnt[c[0]] ? tot[c[0]]/cnt[c[0]] : 0;
-    return '<div><div class="t"><span>' + c[1] + '</span><b>' + (v?v.toFixed(1):'—') + ' / 5</b></div>' +
-           '<i><u style="width:' + (v/5*100).toFixed(0) + '%"></u></i></div>';
-  }).join('');
+  document.getElementById('aspectos').innerHTML =
+    [['g','Valoración general']].concat(CRIT).map(function(c){
+      var v = cnt[c[0]] ? tot[c[0]]/cnt[c[0]] : 0;
+      return '<div><div class="t"><span>' + c[1] + '</span><b>' + (v?v.toFixed(1):'—') + ' / 5</b></div>' +
+             '<i><u style="width:' + (v/5*100).toFixed(0) + '%"></u></i></div>';
+    }).join('');
 
-  var lista = FOCO ? a.coment.filter(function(c){ return titulo(c.para) === titulo((a.rank.filter(function(p){return p.id===FOCO;})[0]||{}).nom); }) : a.coment;
   document.getElementById('com-n').textContent =
-    lista.length + (lista.length===1?' comentario':' comentarios') + (FOCO?' · filtrado':'');
-  var M = document.getElementById('muro');
-  M.innerHTML = lista.length ? lista.map(function(c){
-    return '<div class="com"><div class="para"><span>Para ' + esc(c.para) + '</span>' +
-           '<u>' + estrellas(c.g).replace(/<s>★<\/s>/g,'') + '</u></div>' +
-           '<p>' + esc(c.txt) + '</p>' +
-           '<div class="anon">Retroalimentación anónima de un compañero</div></div>';
-  }).join('') : '<div class="vacio"><b>Sin comentarios por ahora</b>' +
-    'Aquí van apareciendo, sin el nombre de quien los escribe.</div>';
+    a.coment.length + (a.coment.length===1?' comentario':' comentarios');
+  document.getElementById('muro').innerHTML = a.coment.length
+    ? a.coment.map(function(c){ return tarjetaComentario(c, true); }).join('')
+    : '<div class="vacio"><b>Sin comentarios por ahora</b>' +
+      'Aquí van apareciendo, sin el nombre de quien los escribe.</div>';
 }
 
-function enfocar(id){ FOCO = (FOCO === id ? null : id); ciclo(); }
+function enfocar(id){
+  FOCO = id || null;
+  if (ULT) pintar(ULT);       // cambia al instante, sin esperar al siguiente refresco
+}
 
 async function ciclo(){
   try {

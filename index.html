@@ -330,7 +330,10 @@ input[type=range]::-webkit-slider-thumb{
   border:1px solid rgba(244,162,97,.25);border-radius:50px;padding:5px 12px;}
 .ev-card{background:var(--navy-med);border:1px solid rgba(244,162,97,.22);border-radius:var(--r);
   padding:18px;margin-bottom:14px;position:relative;}
-.ev-card.sin-persona{border-color:rgba(244,162,97,.5);}
+.ev-card.sin-persona{border-color:rgba(165,32,42,.65);background:rgba(165,32,42,.06);}
+.ev-aviso{background:rgba(165,32,42,.16);border:1px solid rgba(165,32,42,.5);color:#E8737B;
+  border-radius:8px;padding:9px 13px;font-size:12.5px;line-height:1.45;margin-bottom:12px;}
+.ev-card.sin-persona select{border-color:rgba(165,32,42,.6)!important;}
 .ev-num{position:absolute;top:-10px;left:16px;background:var(--naranja);color:var(--navy);
   font-family:var(--font-t);font-weight:800;font-size:11px;border-radius:50px;padding:3px 11px;}
 .ev-quitar{position:absolute;top:12px;right:12px;background:rgba(165,32,42,.25);
@@ -2129,8 +2132,18 @@ function evResumen() {
   var box = document.getElementById('ev-resumen');
   if (!box) return;
   var conPersona = EV.filter(function(e){ return e.p; });
+  var sinPersona = EV.length - conPersona.length;
   var completas = conPersona.filter(function(e){ return e.g && e.d && e.c && e.a; });
   if (!EV.length) { box.textContent = 'Todavía no has evaluado a nadie.'; return; }
+  box.style.background = sinPersona ? 'rgba(165,32,42,.10)' : 'rgba(49,165,64,.08)';
+  box.style.borderColor = sinPersona ? 'rgba(165,32,42,.45)' : 'rgba(49,165,64,.3)';
+  if (sinPersona) {
+    box.innerHTML = '<b style="color:#E8737B">⚠ ' + sinPersona + ' evaluaci' +
+      (sinPersona === 1 ? 'ón no cuenta todavía' : 'ones no cuentan todavía') +
+      '</b> — falta elegir a quién va dirigida. Sin destinatario no se puede entregar ni aparece en el tablero.' +
+      (conPersona.length ? ' · Las otras <b>' + conPersona.length + '</b> van bien.' : '');
+    return;
+  }
   box.innerHTML = 'Llevas <b>' + conPersona.length + '</b> ' +
     (conPersona.length === 1 ? 'evaluación' : 'evaluaciones') + ' · <b>' + completas.length +
     '</b> con las cuatro estrellas puestas' +
@@ -2190,6 +2203,9 @@ function evRender() {
     h += '<div class="ev-card' + (e.p ? '' : ' sin-persona') + '">' +
          '<span class="ev-num">Evaluación ' + (i + 1) + '</span>' +
          '<button class="ev-quitar" onclick="evBorrar(' + i + ')" title="Quitar">✕</button>' +
+         (e.p ? '' : '<div class="ev-aviso"><b>Falta elegir a quién evalúas.</b> ' +
+           'Tus estrellas y tu comentario ya se están guardando, pero no se pueden entregar ' +
+           'ni aparecen en el tablero hasta que selecciones a la persona.</div>') +
          '<div class="field" style="margin-bottom:12px"><label>¿A quién evalúas?</label>' +
          '<select onchange="evPersona(' + i + ',this.value)">' + evOpciones(otro ? '__otro__' : e.p) + '</select>' +
          (otro ? '<input class="inp" style="margin-top:8px" placeholder="Nombre de la persona" ' +
