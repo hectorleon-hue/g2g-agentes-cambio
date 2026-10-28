@@ -323,6 +323,39 @@ input[type=range]::-webkit-slider-thumb{
   background:rgba(165,32,42,.2);border:1px solid rgba(165,32,42,.4);
   border-radius:20px;padding:3px 10px;font-size:11px;color:#f87171;display:none;
 }
+
+/* ══ Retro de practica (pestana 12) ══ */
+.ev-leyenda{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.ev-leyenda span{font-size:11px;color:rgba(255,255,255,.62);background:rgba(244,162,97,.10);
+  border:1px solid rgba(244,162,97,.25);border-radius:50px;padding:5px 12px;}
+.ev-card{background:var(--navy-med);border:1px solid rgba(244,162,97,.22);border-radius:var(--r);
+  padding:18px;margin-bottom:14px;position:relative;}
+.ev-card.sin-persona{border-color:rgba(244,162,97,.5);}
+.ev-num{position:absolute;top:-10px;left:16px;background:var(--naranja);color:var(--navy);
+  font-family:var(--font-t);font-weight:800;font-size:11px;border-radius:50px;padding:3px 11px;}
+.ev-quitar{position:absolute;top:12px;right:12px;background:rgba(165,32,42,.25);
+  border:1px solid rgba(165,32,42,.5);color:#E8737B;border-radius:6px;width:26px;height:26px;
+  cursor:pointer;font-size:13px;line-height:1;}
+.ev-quitar:hover{background:rgba(165,32,42,.45);}
+.ev-crit{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;
+  padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.ev-crit:last-of-type{border-bottom:none;}
+.ev-crit .et{font-size:13px;color:#fff;line-height:1.35;}
+.ev-crit .et i{display:block;font-style:normal;font-size:11px;color:rgba(255,255,255,.45);margin-top:2px;}
+.ev-stars{display:flex;gap:4px;align-items:center;}
+.ev-stars b{cursor:pointer;font-size:24px;line-height:1;color:rgba(255,255,255,.20);
+  transition:.12s;user-select:none;font-weight:400;}
+.ev-stars b:hover{transform:scale(1.18);}
+.ev-stars b.on{color:var(--naranja);text-shadow:0 0 10px rgba(244,162,97,.45);}
+.ev-stars em{font-style:normal;font-size:11px;color:rgba(255,255,255,.5);
+  min-width:34px;text-align:right;font-family:var(--font-t);font-weight:700;}
+.ev-gen .ev-stars b{font-size:30px;}
+.ev-gen{background:rgba(244,162,97,.07);border:1px solid rgba(244,162,97,.22);
+  border-radius:10px;padding:10px 14px;margin:4px 0 12px;}
+.ev-resumen{background:rgba(49,165,64,.08);border:1px solid rgba(49,165,64,.3);
+  border-radius:10px;padding:12px 16px;font-size:13px;color:#fff;margin-bottom:16px;}
+.ev-vacio{text-align:center;color:rgba(255,255,255,.45);font-size:13px;padding:26px 10px;}
+@media(max-width:620px){.ev-crit{grid-template-columns:1fr;}.ev-stars b{font-size:27px;}}
 </style>
 </head>
 <body>
@@ -390,6 +423,7 @@ input[type=range]::-webkit-slider-thumb{
     <button class="tab-btn ttt" onclick="showTab(9)">S10 · TTT Práctica ★</button>
     <button class="tab-btn" onclick="showTab(10)">📥 Cierre</button>
     <button class="tab-btn" style="color:#E8737B" onclick="showTab(11)">🎓 Examen Final</button>
+        <button class="tab-btn" style="color:#F4A261" onclick="showTab(12)">⭐ Retro de Práctica</button>
   </nav>
 
   <div id="tab-0" class="tab-pane active">
@@ -1091,6 +1125,46 @@ input[type=range]::-webkit-slider-thumb{
     <div id="ex-resultado" style="display:none"></div>
   </div>
 
+  <div id="tab-12" class="tab-pane">
+    <div class="session-header">
+      <div class="session-badge" style="background:rgba(244,162,97,.18);color:var(--naranja);border:1px solid rgba(244,162,97,.45)">⭐</div>
+      <div class="session-meta">
+        <h2>Retroalimentación de la Práctica de Facilitación</h2>
+        <p>Evalúa a cada compañero que presente su bloque de 15 minutos</p>
+      </div>
+    </div>
+
+    <div class="section-block orange">
+      <h3>🎯 Cómo se evalúa</h3>
+      <p style="font-size:13px;color:rgba(255,255,255,.72);line-height:1.6">
+        Agrega una tarjeta por cada compañero que presente. Primero eliges a quién vas a evaluar,
+        después calificas con estrellas del 1 al 5 y cierras con tu retroalimentación escrita.
+        Lo que escribas llega a esa persona <b>sin tu nombre</b>: sé específico y honesto.</p>
+      <div class="ev-leyenda">
+        <span>★★★★★ 5 · Lo hizo muy bien</span>
+        <span>★★★★ 4 · Bien, con detalles menores</span>
+        <span>★★★ 3 · Cumplió, sin destacar</span>
+        <span>★★ 2 · Le faltó preparación</span>
+        <span>★ 1 · Aún falta mucha preparación</span>
+      </div>
+    </div>
+
+    <div class="ev-resumen" id="ev-resumen">Todavía no has evaluado a nadie.</div>
+    <div id="ev-lista"></div>
+
+    <button class="btn-add-row" style="width:100%;margin-top:4px" onclick="evAgregar()">
+      + Evaluar a un compañero</button>
+
+    <input type="hidden" id="s12_eval" value="">
+    <datalist id="ev_padron_dl"></datalist>
+
+    <div class="section-block" style="margin-top:20px">
+      <h3>📝 Mi aprendizaje de ver facilitar a otros</h3>
+      <textarea class="inp" id="s12_aprendizaje" oninput="onChange()"
+        placeholder="¿Qué vi hoy que me quiero copiar? ¿Qué error ajeno reconocí como mío? ¿Qué voy a cambiar en mi próxima facilitación?"></textarea>
+    </div>
+  </div>
+
   <footer class="app-footer">
     AGENTES DE CAMBIO G2G0526 ::: Grow2GetherMx ::: "Desaprende y transfórmate"
   </footer>
@@ -1234,6 +1308,7 @@ function cargarCuaderno(rec) {
   if (rec.datos) { capturarAjenas(rec.datos); poblarCampos(rec.datos); }
   actualizarResumen();
   try { refrescarSugerenciasS7(); dibujarGanttS7(); validarTableroS8(); exPintarEstado(); } catch(e) { console.warn('[G2G sug]', e); }
+  try { evLeer(); evRender(); evCargarPadron(); } catch(e) { console.warn('[G2G retro]', e); }
 }
 
 // Una clave pertenece al cuaderno si tiene un campo con ese id o es una tabla dinamica.
@@ -1450,6 +1525,7 @@ function showTab(n) {
   if (n === 6) { refrescarSugerenciasS7(); dibujarGanttS7(); }
   if (n === 7) validarTableroS8();
   if (n === 11) exPintarEstado();
+  if (n === 12) { evLeer(); evRender(); evCargarPadron(); }
 }
 
 // ══ RESUMEN
@@ -2016,6 +2092,153 @@ function delRow(btn) {
   var row = btn.closest('tr');
   row.parentNode.removeChild(row);
   onChange();
+}
+
+
+// ══════════════════ RETRO DE PRACTICA (pestana 12) ══════════════════
+var EV = [];            // [{p:email, n:nombre, g,d,c,a:0-5, t:''}]
+var EV_PADRON = [];     // [{email, nombre}]
+var EV_PADRON_OK = false;
+
+var EV_CRIT = [
+  ['g', 'Valoración general', 'Qué tan bien lo hizo en conjunto'],
+  ['d', 'Dominio del tema', 'Conoce el contenido y responde con seguridad'],
+  ['c', 'Comunicación que engancha', 'Explica de forma que el entrenamiento llame la atención'],
+  ['a', 'Mantuvo la atención', 'Dejó al participante conectado, atento y presente']
+];
+
+function evTitulo(t) {
+  if (!t) return '';
+  return t.toLowerCase().replace(/(^|[\s'\-])([a-záéíóúñü])/g, function(m, a, b) {
+    return a + b.toUpperCase();
+  });
+}
+function evLeer() {
+  var el = document.getElementById('s12_eval');
+  if (!el) return;
+  try { EV = JSON.parse(el.value || '[]'); } catch(e) { EV = []; }
+  if (!Array.isArray(EV)) EV = [];
+}
+function evSync() {
+  var el = document.getElementById('s12_eval');
+  if (el) el.value = JSON.stringify(EV);
+  evResumen();
+  onChange();
+}
+function evResumen() {
+  var box = document.getElementById('ev-resumen');
+  if (!box) return;
+  var conPersona = EV.filter(function(e){ return e.p; });
+  var completas = conPersona.filter(function(e){ return e.g && e.d && e.c && e.a; });
+  if (!EV.length) { box.textContent = 'Todavía no has evaluado a nadie.'; return; }
+  box.innerHTML = 'Llevas <b>' + conPersona.length + '</b> ' +
+    (conPersona.length === 1 ? 'evaluación' : 'evaluaciones') + ' · <b>' + completas.length +
+    '</b> con las cuatro estrellas puestas' +
+    (completas.length < conPersona.length
+      ? ' · <span style="color:var(--naranja)">te faltan ' + (conPersona.length - completas.length) + ' por completar</span>'
+      : ' · ¡listo!');
+}
+async function evCargarPadron() {
+  if (EV_PADRON_OK || !DB) return;
+  try {
+    var r = await DB.from(TABLE_NAME).select('nombre,email').order('nombre');
+    if (r.error || !r.data) return;
+    var vistos = {};
+    EV_PADRON = r.data.filter(function(x) {
+      var m = (x.email || '').toLowerCase();
+      if (m.indexOf('@gepp.com') < 0) return false;   // solo participantes GEPP
+      if (vistos[m]) return false;
+      vistos[m] = 1; return true;
+    }).map(function(x) {
+      return { email: (x.email || '').toLowerCase(), nombre: evTitulo(x.nombre || '') };
+    }).sort(function(a, b) { return a.nombre.localeCompare(b.nombre, 'es'); });
+    EV_PADRON_OK = EV_PADRON.length > 0;
+    if (EV_PADRON_OK) evRender();
+  } catch(e) { console.warn('[G2G padron]', e); }
+}
+function evOpciones(sel) {
+  var h = '<option value="">— Elige a quién evalúas —</option>';
+  EV_PADRON.forEach(function(p) {
+    h += '<option value="' + escHtml(p.email) + '"' + (p.email === sel ? ' selected' : '') +
+         '>' + escHtml(p.nombre) + '</option>';
+  });
+  if (sel && !EV_PADRON.some(function(p){ return p.email === sel; })) {
+    h += '<option value="' + escHtml(sel) + '" selected>' + escHtml(sel) + '</option>';
+  }
+  h += '<option value="__otro__">Otro — escribir el nombre…</option>';
+  return h;
+}
+function evEstrellas(i, k, val) {
+  var h = '';
+  for (var n = 1; n <= 5; n++) {
+    h += '<b class="' + (n <= val ? 'on' : '') + '" onclick="evSet(' + i + ',\'' + k + '\',' + n + ')" title="' + n + ' de 5">★</b>';
+  }
+  return h + '<em>' + (val ? val + '/5' : '—') + '</em>';
+}
+function evRender() {
+  var cont = document.getElementById('ev-lista');
+  if (!cont) return;
+  if (!EV.length) {
+    cont.innerHTML = '<div class="ev-vacio">Sin evaluaciones todavía.<br>' +
+      'Da clic en «Evaluar a un compañero» cuando termine la primera presentación.</div>';
+    evResumen();
+    return;
+  }
+  var h = '';
+  EV.forEach(function(e, i) {
+    var otro = (e.p === '__otro__' || (e.p && e.p.indexOf('@') < 0));
+    h += '<div class="ev-card' + (e.p ? '' : ' sin-persona') + '">' +
+         '<span class="ev-num">Evaluación ' + (i + 1) + '</span>' +
+         '<button class="ev-quitar" onclick="evBorrar(' + i + ')" title="Quitar">✕</button>' +
+         '<div class="field" style="margin-bottom:12px"><label>¿A quién evalúas?</label>' +
+         '<select onchange="evPersona(' + i + ',this.value)">' + evOpciones(otro ? '__otro__' : e.p) + '</select>' +
+         (otro ? '<input class="inp" style="margin-top:8px" placeholder="Nombre de la persona" ' +
+                 'value="' + escHtml(e.n || '') + '" oninput="evNombreLibre(' + i + ',this.value)">' : '') +
+         '</div>';
+    EV_CRIT.forEach(function(c, ci) {
+      var esGen = (c[0] === 'g');
+      h += '<div class="ev-crit' + (esGen ? ' ev-gen' : '') + '">' +
+           '<div class="et">' + (esGen ? '<b>' + c[1] + '</b>' : c[1]) + '<i>' + c[2] + '</i></div>' +
+           '<div class="ev-stars" id="ev-st-' + i + '-' + c[0] + '">' + evEstrellas(i, c[0], e[c[0]] || 0) + '</div>' +
+           '</div>';
+    });
+    h += '<div class="field" style="margin:12px 0 0"><label>Retroalimentación escrita</label>' +
+         '<textarea class="inp" placeholder="Qué hizo bien y qué le recomiendas para la próxima. Sé específico: «cuando explicaste ADKAR usaste un ejemplo de tu planta y ahí te siguió todo el grupo»." ' +
+         'oninput="evTextoLibre(' + i + ',this.value)">' + escHtml(e.t || '') + '</textarea></div>' +
+         '</div>';
+  });
+  cont.innerHTML = h;
+  evResumen();
+}
+function evAgregar() {
+  evLeer();
+  EV.push({ p: '', n: '', g: 0, d: 0, c: 0, a: 0, t: '' });
+  evSync(); evRender();
+  var cont = document.getElementById('ev-lista');
+  if (cont && cont.lastElementChild) cont.lastElementChild.scrollIntoView({behavior:'smooth', block:'center'});
+}
+function evBorrar(i) {
+  if (!confirm('¿Quitar esta evaluación?')) return;
+  EV.splice(i, 1); evSync(); evRender();
+}
+function evPersona(i, val) {
+  if (!EV[i]) return;
+  if (val === '__otro__') { EV[i].p = '__otro__'; EV[i].n = EV[i].n || ''; }
+  else {
+    EV[i].p = val;
+    var p = EV_PADRON.filter(function(x){ return x.email === val; })[0];
+    EV[i].n = p ? p.nombre : val;
+  }
+  evSync(); evRender();
+}
+function evNombreLibre(i, val) { if (EV[i]) { EV[i].n = val; EV[i].p = '__otro__'; evSync(); } }
+function evTextoLibre(i, val) { if (EV[i]) { EV[i].t = val; evSync(); } }
+function evSet(i, k, n) {
+  if (!EV[i]) return;
+  EV[i][k] = (EV[i][k] === n ? 0 : n);        // volver a dar clic en la misma estrella la limpia
+  var w = document.getElementById('ev-st-' + i + '-' + k);
+  if (w) w.innerHTML = evEstrellas(i, k, EV[i][k]);
+  evSync();
 }
 
 // ══ SAVE INDICATOR
